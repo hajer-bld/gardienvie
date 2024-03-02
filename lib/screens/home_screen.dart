@@ -14,21 +14,21 @@ class HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'GardienVie',
           style: TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.bold,
           ),
         ),
-        backgroundColor: Color.fromARGB(1000, 109, 12, 12),
+        backgroundColor: const Color.fromARGB(1000, 109, 12, 12),
         centerTitle: true,
         leading: IconButton(
           onPressed: () {
             // user's profile + other users names
           },
           color: Colors.black,
-          icon: Icon(
+          icon: const Icon(
             Icons.account_circle,
             size: 40,
           ),
@@ -39,7 +39,7 @@ class HomeScreenState extends State<HomeScreen> {
               // app paramettre  + other users id and kick them
             },
             color: Colors.black,
-            icon: Icon(
+            icon: const Icon(
               Icons.settings,
               size: 40,
             ),

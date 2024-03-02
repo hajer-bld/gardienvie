@@ -35,7 +35,11 @@ class RegistrationScreenState extends State<RegistrationScreen> {
               textAlign: TextAlign.center,
               onChanged: (value) {},
               decoration: const InputDecoration(
+<<<<<<< HEAD
                 hintText: 'Enter your name',
+=======
+                hintText: 'Email',
+>>>>>>> 362c52a4d9d67daa31637a0b5b2412516ac46429
                 contentPadding: EdgeInsets.symmetric(
                   vertical: 10,
                   horizontal: 20,
@@ -72,7 +76,11 @@ class RegistrationScreenState extends State<RegistrationScreen> {
               textAlign: TextAlign.center,
               onChanged: (value) {},
               decoration: const InputDecoration(
+<<<<<<< HEAD
                 hintText: 'Enter your familly name',
+=======
+                hintText: 'Password',
+>>>>>>> 362c52a4d9d67daa31637a0b5b2412516ac46429
                 contentPadding: EdgeInsets.symmetric(
                   vertical: 10,
                   horizontal: 20,
@@ -109,7 +117,11 @@ class RegistrationScreenState extends State<RegistrationScreen> {
               textAlign: TextAlign.center,
               onChanged: (value) {},
               decoration: const InputDecoration(
+<<<<<<< HEAD
                 hintText: 'Enter your username',
+=======
+                hintText: 'Password agine',
+>>>>>>> 362c52a4d9d67daa31637a0b5b2412516ac46429
                 contentPadding: EdgeInsets.symmetric(
                   vertical: 10,
                   horizontal: 20,
@@ -140,6 +152,7 @@ class RegistrationScreenState extends State<RegistrationScreen> {
               ),
             ),
             const SizedBox(
+<<<<<<< HEAD
               height: 10,
             ),
             TextField(
@@ -251,6 +264,8 @@ class RegistrationScreenState extends State<RegistrationScreen> {
               ),
             ),
             const SizedBox(
+=======
+>>>>>>> 362c52a4d9d67daa31637a0b5b2412516ac46429
               height: 15,
             ),
             mybutton(

@@ -28,13 +28,13 @@ class WelcomScreenState extends State<WelcomScreen> {
               children: [
                 Container(
                   height: 180,
-                  child: CircleAvatar(
+                  child: const CircleAvatar(
                     radius: 100.0,
                     backgroundImage:
                         AssetImage('images/GardienVieLOGOlight.png'),
                   ),
                 ),
-                Text(
+                const Text(
                   'GardienVie',
                   style: TextStyle(
                     fontSize: 40,
@@ -44,7 +44,7 @@ class WelcomScreenState extends State<WelcomScreen> {
                 )
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
             mybutton(
