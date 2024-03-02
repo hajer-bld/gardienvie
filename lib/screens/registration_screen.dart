@@ -35,11 +35,7 @@ class RegistrationScreenState extends State<RegistrationScreen> {
               textAlign: TextAlign.center,
               onChanged: (value) {},
               decoration: const InputDecoration(
-<<<<<<< HEAD
-                hintText: 'Enter your name',
-=======
                 hintText: 'Email',
->>>>>>> 362c52a4d9d67daa31637a0b5b2412516ac46429
                 contentPadding: EdgeInsets.symmetric(
                   vertical: 10,
                   horizontal: 20,
@@ -76,11 +72,7 @@ class RegistrationScreenState extends State<RegistrationScreen> {
               textAlign: TextAlign.center,
               onChanged: (value) {},
               decoration: const InputDecoration(
-<<<<<<< HEAD
-                hintText: 'Enter your familly name',
-=======
                 hintText: 'Password',
->>>>>>> 362c52a4d9d67daa31637a0b5b2412516ac46429
                 contentPadding: EdgeInsets.symmetric(
                   vertical: 10,
                   horizontal: 20,
@@ -117,11 +109,7 @@ class RegistrationScreenState extends State<RegistrationScreen> {
               textAlign: TextAlign.center,
               onChanged: (value) {},
               decoration: const InputDecoration(
-<<<<<<< HEAD
-                hintText: 'Enter your username',
-=======
                 hintText: 'Password agine',
->>>>>>> 362c52a4d9d67daa31637a0b5b2412516ac46429
                 contentPadding: EdgeInsets.symmetric(
                   vertical: 10,
                   horizontal: 20,
@@ -152,120 +140,6 @@ class RegistrationScreenState extends State<RegistrationScreen> {
               ),
             ),
             const SizedBox(
-<<<<<<< HEAD
-              height: 10,
-            ),
-            TextField(
-              textAlign: TextAlign.center,
-              onChanged: (value) {},
-              decoration: const InputDecoration(
-                hintText: 'Enter your Email',
-                contentPadding: EdgeInsets.symmetric(
-                  vertical: 10,
-                  horizontal: 20,
-                ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(10),
-                  ),
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Colors.black,
-                    width: 1,
-                  ),
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(10),
-                  ),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Color.fromARGB(1000, 109, 12, 12),
-                    width: 3,
-                  ),
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(10),
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            TextField(
-              textAlign: TextAlign.center,
-              onChanged: (value) {},
-              decoration: const InputDecoration(
-                hintText: 'Enter your Password',
-                contentPadding: EdgeInsets.symmetric(
-                  vertical: 10,
-                  horizontal: 20,
-                ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(10),
-                  ),
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Colors.black,
-                    width: 1,
-                  ),
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(10),
-                  ),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Color.fromARGB(1000, 109, 12, 12),
-                    width: 3,
-                  ),
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(10),
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            TextField(
-              textAlign: TextAlign.center,
-              onChanged: (value) {},
-              decoration: const InputDecoration(
-                hintText: 'Enter your Password agine',
-                contentPadding: EdgeInsets.symmetric(
-                  vertical: 10,
-                  horizontal: 20,
-                ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(10),
-                  ),
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Colors.black,
-                    width: 1,
-                  ),
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(10),
-                  ),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Color.fromARGB(1000, 109, 12, 12),
-                    width: 3,
-                  ),
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(10),
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(
-=======
->>>>>>> 362c52a4d9d67daa31637a0b5b2412516ac46429
               height: 15,
             ),
             mybutton(
