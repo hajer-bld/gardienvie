@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "771455183307",
+    "project_id": "gardienvie-1fe1e",
+    "storage_bucket": "gardienvie-1fe1e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:771455183307:android:59e26f015372364a886e4e",
+        "android_client_info": {
+          "package_name": "com.example.gardienvie"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBRl5ZbsFdm3ropf9X2v2SvSndGuYjMxq4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
