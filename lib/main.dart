@@ -5,10 +5,13 @@ import 'screens/signin_screen.dart';
 import 'screens/welcom_screen.dart';
 
 void main() {
-// runApp(MyApp());
+  // ignore: prefer_const_constructors
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -16,10 +19,10 @@ class MyApp extends StatelessWidget {
       // home: HomeScreen(),
       initialRoute: WelcomScreen.screenRoute,
       routes: {
-        WelcomScreen.screenRoute: (context) => WelcomScreen(),
-        SignInScreen.screenRoute: (context) => SignInScreen(),
-        RegistrationScreen.screenRoute: (context) => RegistrationScreen(),
-        HomeScreen.screenRoute: (context) => HomeScreen(),
+        WelcomScreen.screenRoute: (context) => const WelcomScreen(),
+        SignInScreen.screenRoute: (context) => const SignInScreen(),
+        RegistrationScreen.screenRoute: (context) => const RegistrationScreen(),
+        HomeScreen.screenRoute: (context) => const HomeScreen(),
       },
     );
   }
