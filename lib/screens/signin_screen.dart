@@ -25,12 +25,12 @@ class SignInScreenState extends State<SignInScreen> {
           children: [
             Container(
               height: 180,
-              child: CircleAvatar(
+              child: const CircleAvatar(
                 radius: 100.0,
                 backgroundImage: AssetImage('images/GardienVieLOGOlight.png'),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 50,
             ),
             TextField(
@@ -39,7 +39,7 @@ class SignInScreenState extends State<SignInScreen> {
               onChanged: (value) {
                 email = value;
               },
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: 'Enter your Email / username',
                 contentPadding: EdgeInsets.symmetric(
                   vertical: 10,
@@ -70,7 +70,7 @@ class SignInScreenState extends State<SignInScreen> {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             TextField(
@@ -79,7 +79,7 @@ class SignInScreenState extends State<SignInScreen> {
               onChanged: (value) {
                 password = value;
               },
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: 'Enter your Password',
                 contentPadding: EdgeInsets.symmetric(
                   vertical: 10,
@@ -110,11 +110,11 @@ class SignInScreenState extends State<SignInScreen> {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 15,
             ),
             mybutton(
-              color: Color.fromARGB(1000, 109, 12, 12),
+              color: const Color.fromARGB(1000, 109, 12, 12),
               title: 'Sign In',
               onpressed: () {
                 print(email);
