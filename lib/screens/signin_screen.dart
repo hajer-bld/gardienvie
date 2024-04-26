@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/widgets.dart';
+import 'package:gardienvie/screens/SignUp_screen.dart';
 
 class SignInScreen extends StatefulWidget {
   static const String screenRoute = 'signin_screen';
@@ -152,13 +154,22 @@ class SignInScreenState extends State<SignInScreen> {
                 height: 10,
               ),
               //sign up link
-              const Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text("don't have an account  "),
-                  Text(
-                    "sign up now !",
-                    style: TextStyle(color: Colors.lightBlueAccent),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const SignUpScreen()),
+                      );
+                    },
+                    child: Text(
+                      "sign up now !",
+                      style: TextStyle(color: Colors.lightBlueAccent),
+                    ),
                   ),
                 ],
               )

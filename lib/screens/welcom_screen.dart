@@ -1,5 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:gardienvie/screens/registration_screen.dart';
+import 'package:gardienvie/screens/SignUp_screen.dart';
 import 'package:gardienvie/screens/signin_screen.dart';
 
 class WelcomScreen extends StatefulWidget {
@@ -12,6 +13,7 @@ class WelcomScreen extends StatefulWidget {
 }
 
 class WelcomScreenState extends State<WelcomScreen> {
+  final user = FirebaseAuth.instance.currentUser!;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,18 +53,18 @@ class WelcomScreenState extends State<WelcomScreen> {
                 // Navigate to the sign-in screen
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => SignInScreen()),
+                  MaterialPageRoute(builder: (context) => const SignInScreen()),
                 );
               },
               child: Container(
-                padding: EdgeInsets.all(16),
-                decoration: BoxDecoration(
+                padding: const EdgeInsets.all(16),
+                decoration: const BoxDecoration(
                   color: Color.fromARGB(1000, 109, 12, 12),
                   borderRadius: BorderRadius.all(
                     Radius.circular(10),
                   ),
                 ),
-                child: Center(
+                child: const Center(
                   child: Text("Sign In"),
                 ),
               ),
@@ -77,18 +79,18 @@ class WelcomScreenState extends State<WelcomScreen> {
                 // Navigate to the sign-up screen
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => SignUpScreen()),
+                  MaterialPageRoute(builder: (context) => const SignUpScreen()),
                 );
               },
               child: Container(
-                padding: EdgeInsets.all(16),
-                decoration: BoxDecoration(
+                padding: const EdgeInsets.all(16),
+                decoration: const BoxDecoration(
                   color: Color.fromARGB(1000, 109, 12, 12),
                   borderRadius: BorderRadius.all(
                     Radius.circular(10),
                   ),
                 ),
-                child: Center(
+                child: const Center(
                   child: Text("Sign Un"),
                 ),
               ),

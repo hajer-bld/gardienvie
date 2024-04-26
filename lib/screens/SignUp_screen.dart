@@ -1,5 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:gardienvie/auth.dart';
 import 'package:gardienvie/screens/home_screen.dart';
+import 'package:gardienvie/screens/signin_screen.dart';
 
 class SignUpScreen extends StatefulWidget {
   static const String screenRoute = 'SignUp_screen';
@@ -11,7 +14,36 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class SignUpScreenState extends State<SignUpScreen> {
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final _passwordvrController = TextEditingController();
+
+  Future signUp() async {
+    if (passwordvr()) {
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: _emailController.text.trim(),
+        password: _passwordController.text.trim(),
+      );
+      Navigator.of(context).pushNamed('auth');
+    }
+  }
+
+  bool passwordvr() {
+    if (_passwordController.text.trim() == _passwordvrController.text.trim()) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   @override
+  void dispose() {
+    super.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    _passwordvrController.dispose();
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
@@ -22,6 +54,7 @@ class SignUpScreenState extends State<SignUpScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
+              //logo
               Container(
                 height: 180,
                 child: const CircleAvatar(
@@ -32,7 +65,10 @@ class SignUpScreenState extends State<SignUpScreen> {
               const SizedBox(
                 height: 50,
               ),
+
+              //email
               TextField(
+                controller: _emailController,
                 textAlign: TextAlign.center,
                 onChanged: (value) {},
                 decoration: const InputDecoration(
@@ -69,11 +105,15 @@ class SignUpScreenState extends State<SignUpScreen> {
               const SizedBox(
                 height: 10,
               ),
+
+              //password
               TextField(
+                controller: _passwordController,
+                obscureText: true,
                 textAlign: TextAlign.center,
                 onChanged: (value) {},
                 decoration: const InputDecoration(
-                  hintText: 'Password',
+                  hintText: 'enter Password',
                   contentPadding: EdgeInsets.symmetric(
                     vertical: 10,
                     horizontal: 20,
@@ -106,11 +146,15 @@ class SignUpScreenState extends State<SignUpScreen> {
               const SizedBox(
                 height: 10,
               ),
+
+              //password   2
               TextField(
+                controller: _passwordvrController,
+                obscureText: true,
                 textAlign: TextAlign.center,
                 onChanged: (value) {},
                 decoration: const InputDecoration(
-                  hintText: 'Password agine',
+                  hintText: 'Renter Password',
                   contentPadding: EdgeInsets.symmetric(
                     vertical: 10,
                     horizontal: 20,
@@ -143,27 +187,50 @@ class SignUpScreenState extends State<SignUpScreen> {
               const SizedBox(
                 height: 15,
               ),
-              GestureDetector(
-                onTap: () {
-                  // Navigate to the sign-in screen
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => HomeScreen()),
-                  );
-                },
-                child: Container(
-                  padding: EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: Color.fromARGB(1000, 109, 12, 12),
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(10),
+
+              //btn
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 150),
+                child: GestureDetector(
+                  onTap: signUp,
+                  child: Container(
+                    padding: EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: Color.fromARGB(1000, 109, 12, 12),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(10),
+                      ),
                     ),
-                  ),
-                  child: Center(
-                    child: Text("Sign Up"),
+                    child: Center(
+                      child: Text("Sign Up"),
+                    ),
                   ),
                 ),
               ),
+              const SizedBox(
+                height: 10,
+              ),
+
+              //link to sign in
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text("already have an account  "),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const SignInScreen()),
+                      );
+                    },
+                    child: Text(
+                      "sign in here!",
+                      style: TextStyle(color: Colors.lightBlueAccent),
+                    ),
+                  ),
+                ],
+              )
             ],
           ),
         ),
