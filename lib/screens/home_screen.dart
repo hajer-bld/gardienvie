@@ -23,16 +23,6 @@ class HomeScreenState extends State<HomeScreen> {
         ),
         backgroundColor: const Color.fromARGB(1000, 109, 12, 12),
         centerTitle: true,
-        leading: IconButton(
-          onPressed: () {
-            // user's profile + other users names
-          },
-          color: Colors.black,
-          icon: const Icon(
-            Icons.account_circle,
-            size: 40,
-          ),
-        ),
         actions: [
           IconButton(
             onPressed: () {
@@ -45,6 +35,15 @@ class HomeScreenState extends State<HomeScreen> {
             ),
           ),
         ],
+      ),
+      drawer: Drawer(
+        child: ListView(
+          children: [
+            Row(
+              children: [Container()],
+            )
+          ],
+        ),
       ),
     );
   }
