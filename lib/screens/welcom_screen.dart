@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:gardienvie/screens/registration_screen.dart';
 import 'package:gardienvie/screens/signin_screen.dart';
 
-import '/my_widgets/my_button.dart';
-
 class WelcomScreen extends StatefulWidget {
   static const String screenRoute = 'welcom_screen';
 
@@ -47,19 +45,53 @@ class WelcomScreenState extends State<WelcomScreen> {
             const SizedBox(
               height: 30,
             ),
-            mybutton(
-              color: Colors.black,
-              title: 'Sign In',
-              onpressed: () {
-                Navigator.pushNamed(context, SignInScreen.screenRoute);
+            //sign in
+            GestureDetector(
+              onTap: () {
+                // Navigate to the sign-in screen
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => SignInScreen()),
+                );
               },
+              child: Container(
+                padding: EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: Color.fromARGB(1000, 109, 12, 12),
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(10),
+                  ),
+                ),
+                child: Center(
+                  child: Text("Sign In"),
+                ),
+              ),
             ),
-            mybutton(
-              color: Colors.black,
-              title: 'register',
-              onpressed: () {
-                Navigator.pushNamed(context, RegistrationScreen.screenRoute);
+
+            const SizedBox(
+              height: 20,
+            ),
+            //sign up
+            GestureDetector(
+              onTap: () {
+                // Navigate to the sign-up screen
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => SignUpScreen()),
+                );
               },
+              child: Container(
+                padding: EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: Color.fromARGB(1000, 109, 12, 12),
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(10),
+                  ),
+                ),
+                child: Center(
+                  child: Text("Sign Un"),
+                ),
+              ),
             ),
           ],
         ),

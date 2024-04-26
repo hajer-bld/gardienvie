@@ -1,9 +1,5 @@
-import 'dart:js_interop';
-
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:gardienvie/my_widgets/my_button.dart';
-import 'package:gardienvie/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class SignInScreen extends StatefulWidget {
   static const String screenRoute = 'signin_screen';
@@ -19,7 +15,10 @@ class SignInScreenState extends State<SignInScreen> {
   final _passwordController = TextEditingController();
 
   Future signIn() async {
-    await FirebaseAuth.instance.createUserWithEmailAndPassword(email, password);
+    await FirebaseAuth.instance.signInWithEmailAndPassword(
+      email: _emailController.text.trim(),
+      password: _passwordController.text.trim(),
+    );
   }
 
   @override
@@ -98,10 +97,8 @@ class SignInScreenState extends State<SignInScreen> {
                 textAlign: TextAlign.center,
                 decoration: const InputDecoration(
                   hintText: 'Password',
-                  contentPadding: EdgeInsets.symmetric(
-                    vertical: 10,
-                    horizontal: 20,
-                  ),
+                  contentPadding:
+                      EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.all(
                       Radius.circular(10),
@@ -132,16 +129,27 @@ class SignInScreenState extends State<SignInScreen> {
                 height: 15,
               ),
               //button
-              GestureDetector(
-                onTap: signIn,
-                child: mybutton(
-                  color: const Color.fromARGB(1000, 109, 12, 12),
-                  title: 'Sign In',
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 150),
+                child: GestureDetector(
+                  onTap: signIn,
+                  child: Container(
+                    padding: EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: Color.fromARGB(1000, 109, 12, 12),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(10),
+                      ),
+                    ),
+                    child: Center(
+                      child: Text("Sign In"),
+                    ),
+                  ),
                 ),
               ),
 
               const SizedBox(
-                height: 15,
+                height: 10,
               ),
               //sign up link
               const Row(
