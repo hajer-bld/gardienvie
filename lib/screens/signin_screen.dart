@@ -1,5 +1,9 @@
+import 'dart:js_interop';
+
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:gardienvie/my_widgets/my_button.dart';
+import 'package:gardienvie/firebase_auth.dart';
 
 class SignInScreen extends StatefulWidget {
   static const String screenRoute = 'signin_screen';
@@ -15,8 +19,7 @@ class SignInScreenState extends State<SignInScreen> {
   final _passwordController = TextEditingController();
 
   Future signIn() async {
-    await FirebaseAuth.instance
-        .signInWithEmailAndPassword(email: email, password: password);
+    await FirebaseAuth.instance.createUserWithEmailAndPassword(email, password);
   }
 
   @override
