@@ -5,7 +5,7 @@ import 'package:gardienvie/firebase_options.dart';
 import 'screens/home_screen.dart';
 import 'screens/SignUp_screen.dart';
 import 'screens/signin_screen.dart';
-import 'screens/welcom_screen.dart';
+import 'screens/map_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,9 +23,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'GardienVie',
       // home: HomeScreen(),
-      initialRoute: Auth.screenRoute,
+      initialRoute: MapScreen.screenRoute,
       routes: {
-        WelcomScreen.screenRoute: (context) => const WelcomScreen(),
+        MapScreen.screenRoute: (context) => const MapScreen(),
         SignInScreen.screenRoute: (context) => const SignInScreen(),
         SignUpScreen.screenRoute: (context) => const SignUpScreen(),
         HomeScreen.screenRoute: (context) => const HomeScreen(),

@@ -1,7 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:gardienvie/auth.dart';
-import 'package:gardienvie/screens/home_screen.dart';
 import 'package:gardienvie/screens/signin_screen.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -24,6 +22,7 @@ class SignUpScreenState extends State<SignUpScreen> {
         email: _emailController.text.trim(),
         password: _passwordController.text.trim(),
       );
+      // ignore: use_build_context_synchronously
       Navigator.of(context).pushNamed('auth');
     }
   }
@@ -44,6 +43,7 @@ class SignUpScreenState extends State<SignUpScreen> {
     _passwordvrController.dispose();
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
@@ -55,9 +55,9 @@ class SignUpScreenState extends State<SignUpScreen> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               //logo
-              Container(
+              const SizedBox(
                 height: 180,
-                child: const CircleAvatar(
+                child: CircleAvatar(
                   radius: 100.0,
                   backgroundImage: AssetImage('images/GardienVieLOGOlight.png'),
                 ),
@@ -194,14 +194,14 @@ class SignUpScreenState extends State<SignUpScreen> {
                 child: GestureDetector(
                   onTap: signUp,
                   child: Container(
-                    padding: EdgeInsets.all(16),
-                    decoration: BoxDecoration(
+                    padding: const EdgeInsets.all(16),
+                    decoration: const BoxDecoration(
                       color: Color.fromARGB(1000, 109, 12, 12),
                       borderRadius: BorderRadius.all(
                         Radius.circular(10),
                       ),
                     ),
-                    child: Center(
+                    child: const Center(
                       child: Text("Sign Up"),
                     ),
                   ),
@@ -215,7 +215,7 @@ class SignUpScreenState extends State<SignUpScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("already have an account  "),
+                  const Text("already have an account  "),
                   GestureDetector(
                     onTap: () {
                       Navigator.push(
@@ -224,7 +224,7 @@ class SignUpScreenState extends State<SignUpScreen> {
                             builder: (context) => const SignInScreen()),
                       );
                     },
-                    child: Text(
+                    child: const Text(
                       "sign in here!",
                       style: TextStyle(color: Colors.lightBlueAccent),
                     ),
