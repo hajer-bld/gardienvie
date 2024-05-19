@@ -59,7 +59,7 @@ class MapScreenState extends State<MapScreen> {
       body: GoogleMap(
         initialCameraPosition: CameraPosition(
           target: LatLng(37.43296265331129, -122.08832357078792),
-          zoom: 19,
+          zoom: 20,
         ),
       ),
     );

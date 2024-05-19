@@ -44,6 +44,8 @@ dependencies:
   google_maps_flutter: ^2.6.1
   location: ^4.4.0
   flutter_svg: ^1.1.0
+  firebase_database: ^10.0.9
+  latlong2: ^0.9.1
 
        
 
