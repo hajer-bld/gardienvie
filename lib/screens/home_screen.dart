@@ -1,4 +1,6 @@
 import "package:flutter/material.dart";
+import '../app_data.dart';
+import '../my_widgets/data_item.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String screenRoute = 'home_screen';
@@ -44,6 +46,23 @@ class HomeScreenState extends State<HomeScreen> {
             )
           ],
         ),
+      ),
+      body: GridView(
+        padding: EdgeInsets.all(10),
+        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+          maxCrossAxisExtent: 200,
+          childAspectRatio: 7 / 8,
+          mainAxisSpacing: 10,
+          crossAxisSpacing: 10,
+        ),
+        children: Data_data.map(
+          (datadata) => DataItem(
+            datadata.data,
+            datadata.imageUrl,
+            datadata.id,
+            datadata.title,
+          ),
+        ).toList(),
       ),
     );
   }
