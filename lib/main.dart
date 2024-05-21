@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'GardienVie',
       // home: HomeScreen(),
-      initialRoute: HomeScreen.screenRoute,
+      initialRoute: SignInScreen.screenRoute,
       routes: {
         MapScreen.screenRoute: (context) => const MapScreen(),
         SignInScreen.screenRoute: (context) => const SignInScreen(),
