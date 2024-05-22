@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/widgets.dart';
 import 'package:gardienvie/screens/SignUp_screen.dart';
 
 class SignInScreen extends StatefulWidget {
@@ -15,12 +14,37 @@ class SignInScreen extends StatefulWidget {
 class SignInScreenState extends State<SignInScreen> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  String? _emailError;
+  String? _passwordError;
+  String _generalErrorMessage = '';
 
   Future signIn() async {
-    await FirebaseAuth.instance.signInWithEmailAndPassword(
-      email: _emailController.text.trim(),
-      password: _passwordController.text.trim(),
-    );
+    setState(() {
+      _emailError = null;
+      _passwordError = null;
+      _generalErrorMessage = '';
+    });
+
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: _emailController.text.trim(),
+        password: _passwordController.text.trim(),
+      );
+    } on FirebaseAuthException catch (e) {
+      setState(() {
+        if (e.code == 'user-not-found') {
+          _emailError = 'No user found for that email.';
+        } else if (e.code == 'wrong-password') {
+          _passwordError = 'Wrong password provided.';
+        } else {
+          _generalErrorMessage = e.message ?? 'An error occurred';
+        }
+      });
+    } catch (e) {
+      setState(() {
+        _generalErrorMessage = 'An error occurred. Please try again.';
+      });
+    }
   }
 
   @override
@@ -57,18 +81,18 @@ class SignInScreenState extends State<SignInScreen> {
                 controller: _emailController,
                 keyboardType: TextInputType.emailAddress,
                 textAlign: TextAlign.center,
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
                   hintText: 'Email',
-                  contentPadding: EdgeInsets.symmetric(
+                  contentPadding: const EdgeInsets.symmetric(
                     vertical: 10,
                     horizontal: 20,
                   ),
-                  border: OutlineInputBorder(
+                  border: const OutlineInputBorder(
                     borderRadius: BorderRadius.all(
                       Radius.circular(10),
                     ),
                   ),
-                  enabledBorder: OutlineInputBorder(
+                  enabledBorder: const OutlineInputBorder(
                     borderSide: BorderSide(
                       color: Colors.black,
                       width: 1,
@@ -77,7 +101,7 @@ class SignInScreenState extends State<SignInScreen> {
                       Radius.circular(10),
                     ),
                   ),
-                  focusedBorder: OutlineInputBorder(
+                  focusedBorder: const OutlineInputBorder(
                     borderSide: BorderSide(
                       color: Color.fromARGB(1000, 109, 12, 12),
                       width: 3,
@@ -86,6 +110,7 @@ class SignInScreenState extends State<SignInScreen> {
                       Radius.circular(10),
                     ),
                   ),
+                  errorText: _emailError,
                 ),
               ),
 
@@ -97,16 +122,16 @@ class SignInScreenState extends State<SignInScreen> {
                 controller: _passwordController,
                 obscureText: true,
                 textAlign: TextAlign.center,
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
                   hintText: 'Password',
                   contentPadding:
-                      EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                  border: OutlineInputBorder(
+                      const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                  border: const OutlineInputBorder(
                     borderRadius: BorderRadius.all(
                       Radius.circular(10),
                     ),
                   ),
-                  enabledBorder: OutlineInputBorder(
+                  enabledBorder: const OutlineInputBorder(
                     borderSide: BorderSide(
                       color: Colors.black,
                       width: 1,
@@ -115,7 +140,7 @@ class SignInScreenState extends State<SignInScreen> {
                       Radius.circular(10),
                     ),
                   ),
-                  focusedBorder: OutlineInputBorder(
+                  focusedBorder: const OutlineInputBorder(
                     borderSide: BorderSide(
                       color: Color.fromARGB(1000, 109, 12, 12),
                       width: 3,
@@ -124,6 +149,7 @@ class SignInScreenState extends State<SignInScreen> {
                       Radius.circular(10),
                     ),
                   ),
+                  errorText: _passwordError,
                 ),
               ),
 
@@ -136,14 +162,14 @@ class SignInScreenState extends State<SignInScreen> {
                 child: GestureDetector(
                   onTap: signIn,
                   child: Container(
-                    padding: EdgeInsets.all(16),
-                    decoration: BoxDecoration(
+                    padding: const EdgeInsets.all(16),
+                    decoration: const BoxDecoration(
                       color: Color.fromARGB(1000, 109, 12, 12),
                       borderRadius: BorderRadius.all(
                         Radius.circular(10),
                       ),
                     ),
-                    child: Center(
+                    child: const Center(
                       child: Text("Sign In"),
                     ),
                   ),
@@ -153,11 +179,23 @@ class SignInScreenState extends State<SignInScreen> {
               const SizedBox(
                 height: 10,
               ),
+              if (_generalErrorMessage.isNotEmpty)
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 24),
+                  child: Text(
+                    _generalErrorMessage,
+                    style: const TextStyle(color: Colors.red),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              const SizedBox(
+                height: 10,
+              ),
               //sign up link
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("don't have an account  "),
+                  const Text("don't have an account  "),
                   GestureDetector(
                     onTap: () {
                       Navigator.push(
@@ -166,7 +204,7 @@ class SignInScreenState extends State<SignInScreen> {
                             builder: (context) => const SignUpScreen()),
                       );
                     },
-                    child: Text(
+                    child: const Text(
                       "sign up now !",
                       style: TextStyle(color: Colors.lightBlueAccent),
                     ),
