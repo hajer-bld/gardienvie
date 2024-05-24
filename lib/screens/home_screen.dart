@@ -1,6 +1,8 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../my_widgets/drawer.dart';
+import 'data_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String screenRoute = 'home_screen';
@@ -63,7 +65,10 @@ class HomeScreenState extends State<HomeScreen> {
         actions: [
           IconButton(
             onPressed: () {
-              // app parameter + other users id and kick them
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => DataScreen()),
+              );
             },
             color: Colors.black,
             icon: const Icon(
@@ -73,6 +78,7 @@ class HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
+      drawer: drawer(),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

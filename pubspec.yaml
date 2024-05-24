@@ -50,6 +50,7 @@ dependencies:
   url_launcher: ^6.2.6
   cloud_firestore: ^4.17.4
   animator: ^3.1.0
+  font_awesome_flutter: ^10.1.0
 
        
 
