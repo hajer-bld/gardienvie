@@ -67,20 +67,11 @@ class HomeScreenState extends State<HomeScreen> {
             },
             color: Colors.black,
             icon: const Icon(
-              Icons.settings,
+              Icons.person,
               size: 40,
             ),
           ),
         ],
-      ),
-      drawer: Drawer(
-        child: ListView(
-          children: [
-            Row(
-              children: [Container()],
-            )
-          ],
-        ),
       ),
       body: Center(
         child: Column(

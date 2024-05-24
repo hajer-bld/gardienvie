@@ -2,7 +2,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:gardienvie/auth.dart';
 import 'package:gardienvie/firebase_options.dart';
-import 'screens/data_screen.dart';
 import 'screens/home_screen.dart';
 import 'screens/SignUp_screen.dart';
 import 'screens/signin_screen.dart';
@@ -31,7 +30,6 @@ class MyApp extends StatelessWidget {
         SignUpScreen.screenRoute: (context) => const SignUpScreen(),
         HomeScreen.screenRoute: (context) => const HomeScreen(),
         Auth.screenRoute: (context) => const Auth(),
-        DataScreen.screenRoute: (ctx) => DataScreen(),
       },
     );
   }

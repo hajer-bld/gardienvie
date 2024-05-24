@@ -16,14 +16,14 @@ class SignUpScreenState extends State<SignUpScreen> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _passwordvrController = TextEditingController();
-  bool _saving = false;
+  bool spinner = false;
   String? _emailError;
   String? _passwordError;
   String? _passwordmatchError;
 
   Future signUp() async {
     setState(() {
-      _saving = true;
+      spinner = true;
       _emailError = null;
       _passwordError = null;
       _passwordmatchError = null;
@@ -32,7 +32,7 @@ class SignUpScreenState extends State<SignUpScreen> {
     if (!passwordvr()) {
       setState(() {
         _passwordmatchError = 'Passwords do not match!';
-        _saving = false;
+        spinner = false;
       });
       return;
     }
@@ -42,6 +42,9 @@ class SignUpScreenState extends State<SignUpScreen> {
         email: _emailController.text.trim(),
         password: _passwordController.text.trim(),
       );
+      setState(() {
+        spinner = false;
+      });
       Navigator.of(context).pushNamed('auth');
     } on FirebaseAuthException catch (e) {
       setState(() {
@@ -54,24 +57,18 @@ class SignUpScreenState extends State<SignUpScreen> {
         } else {
           _emailError = 'Sign-up failed. Please try again.';
         }
+        spinner = false;
       });
     } catch (e) {
       setState(() {
         _emailError = 'An error occurred. Please try again.';
-      });
-    } finally {
-      setState(() {
-        _saving = false;
+        spinner = false;
       });
     }
   }
 
   bool passwordvr() {
-    if (_passwordController.text.trim() == _passwordvrController.text.trim()) {
-      return true;
-    } else {
-      return false;
-    }
+    return _passwordController.text.trim() == _passwordvrController.text.trim();
   }
 
   @override
@@ -87,7 +84,7 @@ class SignUpScreenState extends State<SignUpScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: ModalProgressHUD(
-        inAsyncCall: _saving,
+        inAsyncCall: spinner,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24),
           child: SingleChildScrollView(
