@@ -5,7 +5,8 @@ import 'package:gardienvie/screens/signin_screen.dart';
 
 class Auth extends StatelessWidget {
   static const String screenRoute = 'auth';
-  const Auth({super.key});
+
+  const Auth({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

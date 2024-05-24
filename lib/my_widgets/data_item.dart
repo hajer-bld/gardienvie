@@ -12,17 +12,7 @@ class DataItem extends StatelessWidget {
   DataItem(this.data, this.imageUrl, this.id, this.title);
 
   void slectCategory(BuildContext ctx) {
-    if (id == 'd') {
-      _fetchAndLaunchLocation(ctx);
-    } else {
-      Navigator.of(ctx).pushNamed(
-        DataScreen.screenRoute,
-        arguments: {
-          'id': id,
-          'title': title,
-        },
-      );
-    }
+    _fetchAndLaunchLocation(ctx);
   }
 
   Future<void> _fetchAndLaunchLocation(BuildContext context) async {
