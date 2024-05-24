@@ -49,6 +49,7 @@ dependencies:
   modal_progress_hud_nsn: ^0.5.1
   url_launcher: ^6.2.6
   cloud_firestore: ^4.17.4
+  animator: ^3.1.0
 
        
 

@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import '../app_data.dart';
 import '../my_widgets/data_item.dart';
+import 'package:animator/animator.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String screenRoute = 'home_screen';
@@ -47,22 +48,37 @@ class HomeScreenState extends State<HomeScreen> {
           ],
         ),
       ),
-      body: GridView(
-        padding: EdgeInsets.all(10),
-        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-          maxCrossAxisExtent: 200,
-          childAspectRatio: 7 / 8,
-          mainAxisSpacing: 10,
-          crossAxisSpacing: 10,
-        ),
-        children: Data_data.map(
-          (datadata) => DataItem(
-            datadata.data,
-            datadata.imageUrl,
-            datadata.id,
-            datadata.title,
+      body: Column(
+        children: [
+          Animator<double>(
+            tween: Tween<double>(begin: 0, end: 1), // Animation range
+            duration: Duration(seconds: 1),
+            builder: (context, animatorState, child) => Transform.scale(
+              scale: animatorState.value,
+              child: child,
+            ),
+            // Widget to animate
           ),
-        ).toList(),
+          Expanded(
+            child: GridView(
+              padding: EdgeInsets.all(10),
+              gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                maxCrossAxisExtent: 400,
+                childAspectRatio: 1 / 1,
+                mainAxisSpacing: 10,
+                crossAxisSpacing: 10,
+              ),
+              children: Data_data.map(
+                (datadata) => DataItem(
+                  datadata.data,
+                  datadata.imageUrl,
+                  datadata.id,
+                  datadata.title,
+                ),
+              ).toList(),
+            ),
+          ),
+        ],
       ),
     );
   }

@@ -20,7 +20,6 @@ class SignUpScreenState extends State<SignUpScreen> {
   String? _emailError;
   String? _passwordError;
   String? _passwordmatchError;
-  bool _isLoading = false;
 
   Future signUp() async {
     setState(() {
@@ -28,7 +27,6 @@ class SignUpScreenState extends State<SignUpScreen> {
       _emailError = null;
       _passwordError = null;
       _passwordmatchError = null;
-      _isLoading = true;
     });
 
     if (!passwordvr()) {

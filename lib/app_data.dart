@@ -1,7 +1,7 @@
 import './data/data_category.dart';
 
 const Data_data = [
-  Category(
+/*  Category(
     id: 'a',
     title: 'Frequence Cardiaque',
     data: '1',
@@ -18,7 +18,7 @@ const Data_data = [
     title: 'Temperature Corporelle',
     data: '3',
     imageUrl: 'images/Temperature_Corporelle.png',
-  ),
+  ),*/
   Category(
     id: 'd',
     title: 'localisation',
