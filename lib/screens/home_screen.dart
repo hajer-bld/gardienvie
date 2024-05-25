@@ -1,13 +1,13 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../my_widgets/drawer.dart';
 import 'data_screen.dart';
-import 'package:animator/animator.dart';
-import 'package:lottie/lottie.dart';
 import 'package:percent_indicator/percent_indicator.dart';
-import 'package:provider/provider.dart';
+import 'package:flutterflow_ui/flutterflow_ui.dart';
+import 'homemodel.dart';
+export 'homemodel.dart';
+import 'package:fl_chart/fl_chart.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String screenRoute = 'home_screen';
@@ -19,6 +19,21 @@ class HomeScreen extends StatefulWidget {
 }
 
 class HomeScreenState extends State<HomeScreen> {
+  late HomeModel _model;
+  final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  @override
+  void initState() {
+    super.initState();
+    _model = HomeModel();
+  }
+
+  @override
+  void dispose() {
+    _model.dispose();
+    super.dispose();
+  }
+
   Future<void> selectCategory(BuildContext ctx) async {
     try {
       DatabaseReference ref = FirebaseDatabase.instance.ref('locations');
@@ -58,6 +73,7 @@ class HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: scaffoldKey,
       appBar: AppBar(
         title: const Text(
           'GardienVie',
@@ -88,106 +104,23 @@ class HomeScreenState extends State<HomeScreen> {
       body: SafeArea(
         top: true,
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 12),
-          child: GridView.builder(
+          padding: EdgeInsetsDirectional.fromSTEB(12, 12, 12, 0),
+          child: GridView(
             padding: EdgeInsets.zero,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
-              crossAxisSpacing: 1,
-              mainAxisSpacing: 1,
+              crossAxisSpacing: 10,
+              mainAxisSpacing: 10,
               childAspectRatio: 0.75,
             ),
-            itemCount: 1, // Adjust based on your data
-            itemBuilder: (context, index) {
-              return Container(
-                width: 156,
-                height: 216,
-                decoration: BoxDecoration(
-                  color: const Color(0xFF784242),
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Text(
-                            'Oxymetrie',
-                            style: GoogleFonts.inter(
-                              color: Theme.of(context).primaryColor,
-                              fontSize: 22,
-                              letterSpacing: 1,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ],
-                      ),
-                      CircularPercentIndicator(
-                        percent: 0.6,
-                        radius: 60,
-                        lineWidth: 18,
-                        animation: true,
-                        animateFromLastPercent: true,
-                        progressColor: const Color(0xFF92F3F3),
-                        backgroundColor: const Color(0xFF6D0C0C),
-                        center: Text(
-                          '60%',
-                          style: GoogleFonts.sora(
-                            color: Theme.of(context).colorScheme.secondary,
-                            letterSpacing: 0,
-                          ),
-                        ),
-                      ),
-                      Column(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Row(
-                            mainAxisSize: MainAxisSize.max,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                '60.65%',
-                                style: GoogleFonts.inter(
-                                  color: Theme.of(context).primaryColor,
-                                  fontSize: 24,
-                                  letterSpacing: 0,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
-                                    2, 2, 0, 0),
-                                child: Text(
-                                  'SpO2',
-                                  style: GoogleFonts.inter(
-                                    color: Theme.of(context).primaryColor,
-                                    fontSize: 16,
-                                    letterSpacing: 0,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          Text(
-                            'last update',
-                            style: GoogleFonts.inter(
-                              color: Theme.of(context).primaryColor,
-                              fontSize: 12,
-                              letterSpacing: 0,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              );
-            },
+            scrollDirection: Axis.vertical,
+            children: [
+              _buildOxymetryCard(context),
+              _buildTemperatureCard(context),
+              _buildFrequencyCard(context),
+              _buildPressureCard(context),
+              _buildMovementCard(context),
+            ],
           ),
         ),
       ),
@@ -198,6 +131,521 @@ class HomeScreenState extends State<HomeScreen> {
           Icons.location_on,
           size: 50,
           color: const Color.fromARGB(255, 109, 12, 12),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildOxymetryCard(BuildContext context) {
+    return Container(
+      width: 156,
+      height: 216,
+      decoration: BoxDecoration(
+        color: Color(0xFF784242),
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Padding(
+        padding: EdgeInsets.all(16),
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Row(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Text(
+                  'Oxymetrie',
+                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                        fontFamily: 'Inter',
+                        color: FlutterFlowTheme.of(context).primaryBackground,
+                        fontSize: 22,
+                        letterSpacing: 1,
+                        fontWeight: FontWeight.w500,
+                      ),
+                ),
+              ],
+            ),
+            CircularPercentIndicator(
+              percent: 0.6,
+              radius: 60,
+              lineWidth: 18,
+              animation: true,
+              animateFromLastPercent: true,
+              progressColor: Color(0xFF92F3F3),
+              backgroundColor: Color(0xFF6D0C0C),
+              center: Text(
+                '60%',
+                style: FlutterFlowTheme.of(context).headlineSmall.override(
+                      fontFamily: 'Sora',
+                      color: FlutterFlowTheme.of(context).alternate,
+                      letterSpacing: 0,
+                    ),
+              ),
+            ),
+            Column(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      '60.65%',
+                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                            fontFamily: 'Inter',
+                            color:
+                                FlutterFlowTheme.of(context).primaryBackground,
+                            fontSize: 24,
+                            letterSpacing: 0,
+                            fontWeight: FontWeight.w500,
+                          ),
+                    ),
+                    Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(2, 2, 0, 0),
+                      child: Text(
+                        'SpO2',
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              fontFamily: 'Inter',
+                              color: FlutterFlowTheme.of(context)
+                                  .primaryBackground,
+                              fontSize: 16,
+                              letterSpacing: 0,
+                            ),
+                      ),
+                    ),
+                  ],
+                ),
+                Text(
+                  'last update',
+                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                        fontFamily: 'Inter',
+                        color: FlutterFlowTheme.of(context).primaryBackground,
+                        fontSize: 12,
+                        letterSpacing: 0,
+                      ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildTemperatureCard(BuildContext context) {
+    return Container(
+      width: 156,
+      height: 216,
+      decoration: BoxDecoration(
+        color: Color(0xFF784242),
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Padding(
+        padding: EdgeInsets.all(16),
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Row(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Text(
+                  'Temperature',
+                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                        fontFamily: 'Inter',
+                        color: FlutterFlowTheme.of(context).primaryBackground,
+                        fontSize: 22,
+                        letterSpacing: 1,
+                        fontWeight: FontWeight.w500,
+                      ),
+                ),
+              ],
+            ),
+            LinearPercentIndicator(
+              percent: 0.8,
+              lineHeight: 34,
+              animation: true,
+              animateFromLastPercent: true,
+              progressColor: Color(0xFF92F3F3),
+              backgroundColor: Color(0xFF6D0C0C),
+              center: Text(
+                '38.7',
+                style: FlutterFlowTheme.of(context).titleMedium.override(
+                      fontFamily: 'Inter',
+                      letterSpacing: 0,
+                    ),
+              ),
+              barRadius: Radius.circular(40),
+              padding: EdgeInsets.zero,
+            ),
+            Column(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      '38.8',
+                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                            fontFamily: 'Inter',
+                            color:
+                                FlutterFlowTheme.of(context).primaryBackground,
+                            fontSize: 24,
+                            letterSpacing: 0,
+                            fontWeight: FontWeight.w500,
+                          ),
+                    ),
+                    Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(2, 2, 0, 0),
+                      child: Text(
+                        '°C',
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              fontFamily: 'Inter',
+                              color: FlutterFlowTheme.of(context)
+                                  .primaryBackground,
+                              fontSize: 16,
+                              letterSpacing: 0,
+                            ),
+                      ),
+                    ),
+                  ],
+                ),
+                Text(
+                  'last update',
+                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                        fontFamily: 'Inter',
+                        color: FlutterFlowTheme.of(context).primaryBackground,
+                        fontSize: 12,
+                        letterSpacing: 0,
+                      ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildFrequencyCard(BuildContext context) {
+    return Container(
+      width: 156,
+      height: 216,
+      decoration: BoxDecoration(
+        color: Color(0xFF784242),
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Padding(
+        padding: EdgeInsets.all(16),
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Row(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Text(
+                  'Frequence',
+                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                        fontFamily: 'Inter',
+                        color: FlutterFlowTheme.of(context).primaryBackground,
+                        fontSize: 22,
+                        letterSpacing: 1,
+                        fontWeight: FontWeight.w500,
+                      ),
+                ),
+              ],
+            ),
+            Expanded(
+              child: LineChart(
+                LineChartData(
+                  lineBarsData: [
+                    LineChartBarData(
+                      spots: _getLiveFrequencyData(),
+                      isCurved: true,
+                      color: const Color(0xFF92F3F3),
+                      barWidth: 4,
+                      belowBarData: BarAreaData(show: false),
+                    ),
+                  ],
+                  borderData: FlBorderData(show: false),
+                  gridData: FlGridData(show: false),
+                  titlesData: FlTitlesData(show: false),
+                ),
+              ),
+            ),
+            Column(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      '50-120',
+                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                            fontFamily: 'Inter',
+                            color:
+                                FlutterFlowTheme.of(context).primaryBackground,
+                            fontSize: 24,
+                            letterSpacing: 0,
+                            fontWeight: FontWeight.w500,
+                          ),
+                    ),
+                    Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(2, 2, 0, 0),
+                      child: Text(
+                        'bpm',
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              fontFamily: 'Inter',
+                              color: FlutterFlowTheme.of(context)
+                                  .primaryBackground,
+                              fontSize: 16,
+                              letterSpacing: 0,
+                            ),
+                      ),
+                    ),
+                  ],
+                ),
+                Text(
+                  'last update',
+                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                        fontFamily: 'Inter',
+                        color: FlutterFlowTheme.of(context).primaryBackground,
+                        fontSize: 12,
+                        letterSpacing: 0,
+                      ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  List<FlSpot> _getLiveFrequencyData() {
+    // This method should return a list of FlSpot objects representing your live frequency data.
+    // For demonstration purposes, here's some dummy data:
+    return [
+      FlSpot(0, 3),
+      FlSpot(1, 2),
+      FlSpot(2, 5),
+      FlSpot(3, 3.1),
+      FlSpot(4, 4),
+      FlSpot(5, 3),
+      FlSpot(6, 4),
+    ];
+  }
+
+  Widget _buildPressureCard(BuildContext context) {
+    return Container(
+      width: 156,
+      height: 216,
+      decoration: BoxDecoration(
+        color: Color(0xFF784242),
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Padding(
+        padding: EdgeInsets.all(16),
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Row(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Text(
+                  'Pression',
+                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                        fontFamily: 'Inter',
+                        color: FlutterFlowTheme.of(context).primaryBackground,
+                        fontSize: 22,
+                        letterSpacing: 1,
+                        fontWeight: FontWeight.w500,
+                      ),
+                ),
+              ],
+            ),
+            Expanded(
+              child: LineChart(
+                LineChartData(
+                  lineBarsData: [
+                    LineChartBarData(
+                      spots: _getLivePressureData(),
+                      isCurved: true,
+                      color: const Color(0xFF92F3F3),
+                      barWidth: 4,
+                      belowBarData: BarAreaData(show: false),
+                    ),
+                  ],
+                  borderData: FlBorderData(show: false),
+                  gridData: FlGridData(show: false),
+                  titlesData: FlTitlesData(show: false),
+                ),
+              ),
+            ),
+            Column(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      '50-120',
+                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                            fontFamily: 'Inter',
+                            color:
+                                FlutterFlowTheme.of(context).primaryBackground,
+                            fontSize: 24,
+                            letterSpacing: 0,
+                            fontWeight: FontWeight.w500,
+                          ),
+                    ),
+                    Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(2, 2, 0, 0),
+                      child: Text(
+                        'bpm',
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              fontFamily: 'Inter',
+                              color: FlutterFlowTheme.of(context)
+                                  .primaryBackground,
+                              fontSize: 16,
+                              letterSpacing: 0,
+                            ),
+                      ),
+                    ),
+                  ],
+                ),
+                Text(
+                  'last update',
+                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                        fontFamily: 'Inter',
+                        color: FlutterFlowTheme.of(context).primaryBackground,
+                        fontSize: 12,
+                        letterSpacing: 0,
+                      ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  List<FlSpot> _getLivePressureData() {
+    // This method should return a list of FlSpot objects representing your live pressure data.
+    // For demonstration purposes, here's some dummy data:
+    return [
+      FlSpot(0, 1),
+      FlSpot(1, 3),
+      FlSpot(2, 4),
+      FlSpot(3, 2),
+      FlSpot(4, 5),
+      FlSpot(5, 3),
+      FlSpot(6, 4),
+    ];
+  }
+
+  Widget _buildMovementCard(BuildContext context) {
+    return Container(
+      width: 156,
+      height: 216,
+      decoration: BoxDecoration(
+        color: Color(0xFF784242),
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Padding(
+        padding: EdgeInsets.all(16),
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Row(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Text(
+                  'Mouvement',
+                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                        fontFamily: 'Inter',
+                        color: FlutterFlowTheme.of(context).primaryBackground,
+                        fontSize: 22,
+                        letterSpacing: 1,
+                        fontWeight: FontWeight.w500,
+                      ),
+                ),
+              ],
+            ),
+            CircularPercentIndicator(
+              percent: 0.3,
+              radius: 60,
+              lineWidth: 18,
+              animation: true,
+              animateFromLastPercent: true,
+              progressColor: Color(0xFF92F3F3),
+              backgroundColor: Color(0xFF6D0C0C),
+              center: Text(
+                '30%',
+                style: FlutterFlowTheme.of(context).headlineSmall.override(
+                      fontFamily: 'Sora',
+                      color: FlutterFlowTheme.of(context).alternate,
+                      letterSpacing: 0,
+                    ),
+              ),
+            ),
+            Column(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      '50-120',
+                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                            fontFamily: 'Inter',
+                            color:
+                                FlutterFlowTheme.of(context).primaryBackground,
+                            fontSize: 24,
+                            letterSpacing: 0,
+                            fontWeight: FontWeight.w500,
+                          ),
+                    ),
+                    Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(2, 2, 0, 0),
+                      child: Text(
+                        'bpm',
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              fontFamily: 'Inter',
+                              color: FlutterFlowTheme.of(context)
+                                  .primaryBackground,
+                              fontSize: 16,
+                              letterSpacing: 0,
+                            ),
+                      ),
+                    ),
+                  ],
+                ),
+                Text(
+                  'last update',
+                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                        fontFamily: 'Inter',
+                        color: FlutterFlowTheme.of(context).primaryBackground,
+                        fontSize: 12,
+                        letterSpacing: 0,
+                      ),
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );

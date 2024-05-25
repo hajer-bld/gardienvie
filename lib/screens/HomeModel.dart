@@ -1,0 +1,10 @@
+import 'package:flutter/material.dart';
+
+class HomeModel extends ChangeNotifier {
+  final FocusNode unfocusNode = FocusNode();
+
+  void dispose() {
+    unfocusNode.dispose();
+    super.dispose();
+  }
+}
