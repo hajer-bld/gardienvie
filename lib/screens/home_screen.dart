@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -32,29 +33,36 @@ class HomeScreenState extends State<HomeScreen> {
   void dispose() {
     _model.dispose();
     super.dispose();
+    initializeFirebase();
   }
 
-  Future<void> selectCategory(BuildContext ctx) async {
+  Future<void> initializeFirebase() async {
+    await Firebase.initializeApp();
+  }
+
+  Future<void> location(BuildContext ctx) async {
     try {
-      DatabaseReference ref = FirebaseDatabase.instance.ref('locations');
-      DataSnapshot snapshot = await ref.once() as DataSnapshot;
+      DatabaseReference ref =
+          FirebaseDatabase.instance.ref().child('locations');
+      DataSnapshot snapshot = await ref.get();
 
       if (snapshot.value != null) {
-        Map? values = snapshot.value as Map<dynamic, dynamic>?;
+        Map<dynamic, dynamic>? values =
+            snapshot.value as Map<dynamic, dynamic>?;
         if (values != null && values.isNotEmpty) {
           var lastEntry = values.entries.first;
-          double latitude = lastEntry.value['latitude'] as double;
-          double longitude = lastEntry.value['longitude'] as double;
+          double latitude = lastEntry.value['latitude'];
+          double longitude = lastEntry.value['longitude'];
           await launchMaps(latitude, longitude);
         } else {
-          throw 'No location data available';
+          throw 'Location not available';
         }
       }
     } catch (e) {
       print('Error fetching location: $e');
       ScaffoldMessenger.of(ctx).showSnackBar(
         const SnackBar(
-          content: Text('Error fetching location data'),
+          content: Text('Location not available'),
         ),
       );
     }
@@ -125,8 +133,8 @@ class HomeScreenState extends State<HomeScreen> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => selectCategory(context),
-        tooltip: 'Increment',
+        onPressed: () => location(context),
+        tooltip: 'Location',
         child: Icon(
           Icons.location_on,
           size: 50,
