@@ -51,6 +51,11 @@ dependencies:
   cloud_firestore: ^4.17.4
   animator: ^3.1.0
   font_awesome_flutter: ^10.1.0
+  lottie: ^3.0.0
+  flutterflow_ui: ^0.2.0+1
+  google_fonts: ^4.0.3 
+  flutter_flow_chart: ^1.0.0+1
+  
 
        
 
