@@ -56,6 +56,7 @@ dependencies:
   google_fonts: ^4.0.3 
   flutter_flow_chart: ^1.0.0+1
   syncfusion_flutter_charts: ^25.2.5
+  fl_chart: ^0.60.0
   
 
        
