@@ -22,18 +22,24 @@ class HomeScreen extends StatefulWidget {
 class HomeScreenState extends State<HomeScreen> {
   late HomeModel _model;
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  double temp = 36;
+  late String temptext;
+  double oxy = 100;
+  late String oxytext;
 
   @override
   void initState() {
     super.initState();
     _model = HomeModel();
+    oxytext = oxy.toString();
+    temptext = temp.toString();
+    initializeFirebase();
   }
 
   @override
   void dispose() {
     _model.dispose();
     super.dispose();
-    initializeFirebase();
   }
 
   Future<void> initializeFirebase() async {
@@ -144,6 +150,30 @@ class HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  double oxypercent(double oxy) {
+    // Ensure the input number is within the desired range
+    if (oxy < 0) {
+      return 0.0;
+    } else if (oxy > 100) {
+      return 1.0;
+    } else {
+      // Convert the number to a percentage between 0 and 1
+      return oxy / 100.0;
+    }
+  }
+
+  double tempPercent(double temp) {
+    // Ensure the input number is within the desired range
+    if (temp < 35) {
+      return 0.0;
+    } else if (temp > 42) {
+      return 1.0;
+    } else {
+      // Convert the number to a percentage between 0 and 1
+      return (temp - 35) / 7.0;
+    }
+  }
+
   Widget _buildOxymetryCard(BuildContext context) {
     return Container(
       width: 156,
@@ -175,15 +205,15 @@ class HomeScreenState extends State<HomeScreen> {
               ],
             ),
             CircularPercentIndicator(
-              percent: 0.6,
-              radius: 60,
+              percent: oxypercent(oxy),
+              radius: oxy,
               lineWidth: 18,
               animation: true,
               animateFromLastPercent: true,
               progressColor: Color(0xFF92F3F3),
               backgroundColor: Color(0xFF6D0C0C),
               center: Text(
-                '60%',
+                oxy.toString(),
                 style: FlutterFlowTheme.of(context).headlineSmall.override(
                       fontFamily: 'Sora',
                       color: FlutterFlowTheme.of(context).alternate,
@@ -199,7 +229,7 @@ class HomeScreenState extends State<HomeScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      '60.65%',
+                      oxy.toString(),
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                             fontFamily: 'Inter',
                             color:
@@ -272,14 +302,14 @@ class HomeScreenState extends State<HomeScreen> {
               ],
             ),
             LinearPercentIndicator(
-              percent: 0.8,
+              percent: tempPercent(temp),
               lineHeight: 34,
               animation: true,
               animateFromLastPercent: true,
               progressColor: Color(0xFF92F3F3),
               backgroundColor: Color(0xFF6D0C0C),
               center: Text(
-                '38.7',
+                temptext,
                 style: FlutterFlowTheme.of(context).titleMedium.override(
                       fontFamily: 'Inter',
                       letterSpacing: 0,
@@ -296,7 +326,7 @@ class HomeScreenState extends State<HomeScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      '38.8',
+                      temptext,
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                             fontFamily: 'Inter',
                             color:
