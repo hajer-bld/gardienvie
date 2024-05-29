@@ -1,3 +1,6 @@
+// Define the Kotlin version
+ext.kotlin_version = '1.7.10'
+
 pluginManagement {
     def flutterSdkPath = {
         def properties = new Properties()
@@ -19,7 +22,7 @@ pluginManagement {
 plugins {
     id "dev.flutter.flutter-plugin-loader" version "1.0.0"
     id "com.android.application" version "7.3.0" apply false // Replace with the actual AGP version
-    id "org.jetbrains.kotlin.android" version "1.8.0" apply false // Replace with the actual Kotlin version
+    id "org.jetbrains.kotlin.android" version "$kotlin_version" apply false // Use the defined Kotlin version
 }
 
 include ":app"
