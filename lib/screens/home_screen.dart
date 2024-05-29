@@ -150,26 +150,27 @@ class HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  double getCurrentTimeAsDouble() {
+    var y = DateTime.now().millisecondsSinceEpoch.toDouble();
+    return y;
+  }
+
   double oxypercent(double oxy) {
-    // Ensure the input number is within the desired range
     if (oxy < 0) {
       return 0.0;
     } else if (oxy > 100) {
       return 1.0;
     } else {
-      // Convert the number to a percentage between 0 and 1
       return oxy / 100.0;
     }
   }
 
   double tempPercent(double temp) {
-    // Ensure the input number is within the desired range
     if (temp < 35) {
       return 0.0;
     } else if (temp > 42) {
       return 1.0;
     } else {
-      // Convert the number to a percentage between 0 and 1
       return (temp - 35) / 7.0;
     }
   }

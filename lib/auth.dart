@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:gardienvie/screens/home_screen.dart';
-import 'package:gardienvie/screens/signin_screen.dart';
+import './screens/home_screen.dart';
+import './screens/signin_screen.dart';
 
 class Auth extends StatelessWidget {
   static const String screenRoute = 'auth';

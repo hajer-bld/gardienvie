@@ -57,6 +57,7 @@ dependencies:
   flutter_flow_chart: ^1.0.0+1
   syncfusion_flutter_charts: ^25.2.5
   fl_chart: ^0.55.0
+  flutter_local_notifications: ^17.1.2
   
 
        
