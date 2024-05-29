@@ -4,10 +4,10 @@ allprojects {
         mavenCentral()
     }
 }
-
+ 
 rootProject.buildDir = '../build'
 subprojects {
-    project.buildDir = "${rootProject.buildDir}/${project.name}"
+    project.buildDir = "C:/Users/Samar/Dropbox/PC/Documents/GitHub/gardienvie"
 }
 subprojects {
     project.evaluationDependsOn(':app')
