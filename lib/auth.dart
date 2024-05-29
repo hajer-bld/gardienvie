@@ -6,7 +6,7 @@ import './screens/signin_screen.dart';
 class Auth extends StatelessWidget {
   static const String screenRoute = 'auth';
 
-  const Auth({Key? key}) : super(key: key);
+  const Auth({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,9 +15,9 @@ class Auth extends StatelessWidget {
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: ((context, snapshot) {
           if (snapshot.hasData) {
-            return HomeScreen();
+            return const HomeScreen();
           } else {
-            return SignInScreen();
+            return const SignInScreen();
           }
         }),
       ),

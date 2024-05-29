@@ -8,17 +8,17 @@ class drawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _auth = FirebaseAuth.instance;
+    final auth = FirebaseAuth.instance;
     return Drawer(
       child: Column(
         children: [
           Container(
             height: 100,
             width: double.infinity,
-            padding: EdgeInsets.only(top: 40),
+            padding: const EdgeInsets.only(top: 40),
             alignment: Alignment.center,
-            color: Color.fromARGB(1000, 109, 12, 12),
-            child: Text(
+            color: const Color.fromARGB(1000, 109, 12, 12),
+            child: const Text(
               'Parameter & weekData',
               style: TextStyle(
                 color: Colors.black,
@@ -27,30 +27,30 @@ class drawer extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           parim(
               "Oxymetrie de Pouls", FontAwesomeIcons.handHoldingMedical, () {}),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           parim("Temperature Corporelle", FontAwesomeIcons.thermometerHalf,
               () {}),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           parim("Frequence Cardiaque", FontAwesomeIcons.heartbeat, () {}),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           parim("Pression Arterielle", FontAwesomeIcons.prescriptionBottleAlt,
               () {}),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           parim("Sign Out", Icons.close, () {
-            _auth.signOut();
+            auth.signOut();
             Navigator.of(context).pop();
             Navigator.of(context).pushNamedAndRemoveUntil(
               SignInScreen.screenRoute,
@@ -85,11 +85,11 @@ class drawer extends StatelessWidget {
       leading: Icon(
         icon,
         size: 30,
-        color: Color.fromARGB(1000, 109, 12, 12),
+        color: const Color.fromARGB(1000, 109, 12, 12),
       ),
       title: Text(
         title,
-        style: TextStyle(
+        style: const TextStyle(
           color: Colors.black,
           fontSize: 24,
         ),

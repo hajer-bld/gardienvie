@@ -5,7 +5,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 class MapScreen extends StatefulWidget {
   static const String screenRoute = 'map_screen';
 
-  const MapScreen({Key? key}) : super(key: key);
+  const MapScreen({super.key});
 
   @override
   State<MapScreen> createState() => MapScreenState();
@@ -56,7 +56,7 @@ class MapScreenState extends State<MapScreen> {
           ],
         ),
       ),
-      body: GoogleMap(
+      body: const GoogleMap(
         initialCameraPosition: CameraPosition(
           target: LatLng(37.43296265331129, -122.08832357078792),
           zoom: 20,

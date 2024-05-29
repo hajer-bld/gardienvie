@@ -39,7 +39,7 @@ class SignInScreenState extends State<SignInScreen> {
       });
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => HomeScreen()),
+        MaterialPageRoute(builder: (context) => const HomeScreen()),
       );
     } on FirebaseAuthException catch (e) {
       setState(() {
@@ -67,6 +67,7 @@ class SignInScreenState extends State<SignInScreen> {
     _passwordController.dispose();
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
@@ -80,9 +81,9 @@ class SignInScreenState extends State<SignInScreen> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 //the pic
-                Container(
+                const SizedBox(
                   height: 180,
-                  child: const CircleAvatar(
+                  child: CircleAvatar(
                     radius: 100.0,
                     backgroundImage:
                         AssetImage('images/GardienVieLOGOlight.png'),

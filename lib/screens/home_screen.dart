@@ -13,7 +13,7 @@ import 'package:fl_chart/fl_chart.dart';
 class HomeScreen extends StatefulWidget {
   static const String screenRoute = 'home_screen';
 
-  const HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => HomeScreenState();
@@ -114,14 +114,14 @@ class HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
-      drawer: drawer(),
+      drawer: const drawer(),
       body: SafeArea(
         top: true,
         child: Padding(
-          padding: EdgeInsetsDirectional.fromSTEB(12, 12, 12, 0),
+          padding: const EdgeInsetsDirectional.fromSTEB(12, 12, 12, 0),
           child: GridView(
             padding: EdgeInsets.zero,
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
               crossAxisSpacing: 10,
               mainAxisSpacing: 10,
@@ -141,10 +141,10 @@ class HomeScreenState extends State<HomeScreen> {
       floatingActionButton: FloatingActionButton(
         onPressed: () => location(context),
         tooltip: 'Location',
-        child: Icon(
+        child: const Icon(
           Icons.location_on,
           size: 50,
-          color: const Color.fromARGB(255, 109, 12, 12),
+          color: Color.fromARGB(255, 109, 12, 12),
         ),
       ),
     );
@@ -180,11 +180,11 @@ class HomeScreenState extends State<HomeScreen> {
       width: 156,
       height: 216,
       decoration: BoxDecoration(
-        color: Color(0xFF784242),
+        color: const Color(0xFF784242),
         borderRadius: BorderRadius.circular(16),
       ),
       child: Padding(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         child: Column(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -211,8 +211,8 @@ class HomeScreenState extends State<HomeScreen> {
               lineWidth: 18,
               animation: true,
               animateFromLastPercent: true,
-              progressColor: Color(0xFF92F3F3),
-              backgroundColor: Color(0xFF6D0C0C),
+              progressColor: const Color(0xFF92F3F3),
+              backgroundColor: const Color(0xFF6D0C0C),
               center: Text(
                 oxy.toString(),
                 style: FlutterFlowTheme.of(context).headlineSmall.override(
@@ -241,7 +241,7 @@ class HomeScreenState extends State<HomeScreen> {
                           ),
                     ),
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(2, 2, 0, 0),
+                      padding: const EdgeInsetsDirectional.fromSTEB(2, 2, 0, 0),
                       child: Text(
                         'SpO2',
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -277,11 +277,11 @@ class HomeScreenState extends State<HomeScreen> {
       width: 156,
       height: 216,
       decoration: BoxDecoration(
-        color: Color(0xFF784242),
+        color: const Color(0xFF784242),
         borderRadius: BorderRadius.circular(16),
       ),
       child: Padding(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         child: Column(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -307,8 +307,8 @@ class HomeScreenState extends State<HomeScreen> {
               lineHeight: 34,
               animation: true,
               animateFromLastPercent: true,
-              progressColor: Color(0xFF92F3F3),
-              backgroundColor: Color(0xFF6D0C0C),
+              progressColor: const Color(0xFF92F3F3),
+              backgroundColor: const Color(0xFF6D0C0C),
               center: Text(
                 temptext,
                 style: FlutterFlowTheme.of(context).titleMedium.override(
@@ -316,7 +316,7 @@ class HomeScreenState extends State<HomeScreen> {
                       letterSpacing: 0,
                     ),
               ),
-              barRadius: Radius.circular(40),
+              barRadius: const Radius.circular(40),
               padding: EdgeInsets.zero,
             ),
             Column(
@@ -338,7 +338,7 @@ class HomeScreenState extends State<HomeScreen> {
                           ),
                     ),
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(2, 2, 0, 0),
+                      padding: const EdgeInsetsDirectional.fromSTEB(2, 2, 0, 0),
                       child: Text(
                         '°C',
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -374,11 +374,11 @@ class HomeScreenState extends State<HomeScreen> {
       width: 156,
       height: 216,
       decoration: BoxDecoration(
-        color: Color(0xFF784242),
+        color: const Color(0xFF784242),
         borderRadius: BorderRadius.circular(16),
       ),
       child: Padding(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         child: Column(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -436,7 +436,7 @@ class HomeScreenState extends State<HomeScreen> {
                           ),
                     ),
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(2, 2, 0, 0),
+                      padding: const EdgeInsetsDirectional.fromSTEB(2, 2, 0, 0),
                       child: Text(
                         'bpm',
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -471,13 +471,13 @@ class HomeScreenState extends State<HomeScreen> {
     // This method should return a list of FlSpot objects representing your live frequency data.
     // For demonstration purposes, here's some dummy data:
     return [
-      FlSpot(0, 3),
-      FlSpot(1, 2),
-      FlSpot(2, 5),
-      FlSpot(3, 3.1),
-      FlSpot(4, 4),
-      FlSpot(5, 3),
-      FlSpot(6, 4),
+      const FlSpot(0, 3),
+      const FlSpot(1, 2),
+      const FlSpot(2, 5),
+      const FlSpot(3, 3.1),
+      const FlSpot(4, 4),
+      const FlSpot(5, 3),
+      const FlSpot(6, 4),
     ];
   }
 
@@ -486,11 +486,11 @@ class HomeScreenState extends State<HomeScreen> {
       width: 156,
       height: 216,
       decoration: BoxDecoration(
-        color: Color(0xFF784242),
+        color: const Color(0xFF784242),
         borderRadius: BorderRadius.circular(16),
       ),
       child: Padding(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         child: Column(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -548,7 +548,7 @@ class HomeScreenState extends State<HomeScreen> {
                           ),
                     ),
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(2, 2, 0, 0),
+                      padding: const EdgeInsetsDirectional.fromSTEB(2, 2, 0, 0),
                       child: Text(
                         'bpm',
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -583,13 +583,13 @@ class HomeScreenState extends State<HomeScreen> {
     // This method should return a list of FlSpot objects representing your live pressure data.
     // For demonstration purposes, here's some dummy data:
     return [
-      FlSpot(0, 1),
-      FlSpot(1, 3),
-      FlSpot(2, 4),
-      FlSpot(3, 2),
-      FlSpot(4, 5),
-      FlSpot(5, 3),
-      FlSpot(6, 4),
+      const FlSpot(0, 1),
+      const FlSpot(1, 3),
+      const FlSpot(2, 4),
+      const FlSpot(3, 2),
+      const FlSpot(4, 5),
+      const FlSpot(5, 3),
+      const FlSpot(6, 4),
     ];
   }
 
@@ -598,11 +598,11 @@ class HomeScreenState extends State<HomeScreen> {
       width: 156,
       height: 216,
       decoration: BoxDecoration(
-        color: Color(0xFF784242),
+        color: const Color(0xFF784242),
         borderRadius: BorderRadius.circular(16),
       ),
       child: Padding(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         child: Column(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -629,8 +629,8 @@ class HomeScreenState extends State<HomeScreen> {
               lineWidth: 18,
               animation: true,
               animateFromLastPercent: true,
-              progressColor: Color(0xFF92F3F3),
-              backgroundColor: Color(0xFF6D0C0C),
+              progressColor: const Color(0xFF92F3F3),
+              backgroundColor: const Color(0xFF6D0C0C),
               center: Text(
                 '30%',
                 style: FlutterFlowTheme.of(context).headlineSmall.override(
@@ -659,7 +659,7 @@ class HomeScreenState extends State<HomeScreen> {
                           ),
                     ),
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(2, 2, 0, 0),
+                      padding: const EdgeInsetsDirectional.fromSTEB(2, 2, 0, 0),
                       child: Text(
                         'bpm',
                         style: FlutterFlowTheme.of(context).bodyMedium.override(

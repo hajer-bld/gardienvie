@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 class DataScreen extends StatelessWidget {
   static const String screenRoute = 'Data_Screen';
   final user = FirebaseAuth.instance.currentUser;
+
+  DataScreen({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -11,9 +13,9 @@ class DataScreen extends StatelessWidget {
         user != null
             ? Text(
                 user!.email!,
-                style: TextStyle(fontSize: 20),
+                style: const TextStyle(fontSize: 20),
               )
-            : Text(
+            : const Text(
                 'No user signed in',
                 style: TextStyle(fontSize: 20),
               ),
