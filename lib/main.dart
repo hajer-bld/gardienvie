@@ -1,7 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:gardienvie/auth.dart';
-import 'package:gardienvie/firebase_options.dart';
 import 'screens/data_screen.dart';
 import 'screens/home_screen.dart';
 import 'screens/SignUp_screen.dart';
@@ -12,13 +11,13 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: const FirebaseOptions(
-        appId: "1:771455183307:android:59e26f015372364a886e4e",
-        apiKey: "AIzaSyBRl5ZbsFdm3ropf9X2v2SvSndGuYjMxq4",
-        databaseURL:
-            "https://gardienvie-1fe1e-default-rtdb.europe-west1.firebasedatabase.app",
-        projectId: "gardienvie-1fe1e",
-        storageBucket: "auth-app-9678a.appspot.com",
-        messagingSenderId: ""),
+      apiKey: "AIzaSyBRl5ZbsFdm3ropf9X2v2SvSndGuYjMxq4",
+      appId: "1:771455183307:android:59e26f015372364a886e4e",
+      messagingSenderId: "771455183307",
+      projectId: "gardienvie-1fe1e",
+      authDomain: "gardienvie-1fe1e",
+      storageBucket: "gardienvie-1fe1e.appspot.com",
+    ),
   );
   runApp(const MyApp());
 }

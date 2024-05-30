@@ -1,4 +1,3 @@
-import 'package:firebase_auth_platform_interface/firebase_auth_platform_interface.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
@@ -503,7 +502,7 @@ class HomeScreenState extends State<HomeScreen> {
               progressColor: const Color(0xFF92F3F3),
               backgroundColor: const Color(0xFF6D0C0C),
               center: Text(
-                temptext,
+                presstext,
                 style: FlutterFlowTheme.of(context).titleMedium.override(
                       fontFamily: 'Inter',
                       letterSpacing: 0,
@@ -533,7 +532,7 @@ class HomeScreenState extends State<HomeScreen> {
                     Padding(
                       padding: const EdgeInsetsDirectional.fromSTEB(2, 2, 0, 0),
                       child: Text(
-                        'bpm',
+                        'mmHg',
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Inter',
                               color: FlutterFlowTheme.of(context)
@@ -630,7 +629,7 @@ class HomeScreenState extends State<HomeScreen> {
                     Padding(
                       padding: const EdgeInsetsDirectional.fromSTEB(2, 2, 0, 0),
                       child: Text(
-                        'bpm',
+                        'm/s',
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Inter',
                               color: FlutterFlowTheme.of(context)
