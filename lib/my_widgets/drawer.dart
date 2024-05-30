@@ -59,24 +59,6 @@ class drawer extends StatelessWidget {
           }),
         ],
       ),
-      /* ListView(
-        children: [
-          Row(
-            children: [
-              IconButton(
-                  onPressed: () {
-                    _auth.signOut();
-                    Navigator.of(context).pop();
-                    Navigator.of(context).pushNamedAndRemoveUntil(
-                      SignInScreen.screenRoute,
-                      (route) => false,
-                    );
-                  },
-                  icon: Icon(Icons.close))
-            ],
-          )
-        ],
-      ),*/
     );
   }
 

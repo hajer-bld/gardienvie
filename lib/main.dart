@@ -5,7 +5,6 @@ import 'screens/data_screen.dart';
 import 'screens/home_screen.dart';
 import 'screens/SignUp_screen.dart';
 import 'screens/signin_screen.dart';
-import 'screens/map_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,7 +14,6 @@ void main() async {
       appId: "1:771455183307:android:59e26f015372364a886e4e",
       messagingSenderId: "771455183307",
       projectId: "gardienvie-1fe1e",
-      authDomain: "gardienvie-1fe1e",
       storageBucket: "gardienvie-1fe1e.appspot.com",
     ),
   );
@@ -28,11 +26,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'GardienVie',
       // home: HomeScreen(),
-      initialRoute: HomeScreen.screenRoute,
+      initialRoute: Auth.screenRoute,
       routes: {
-        MapScreen.screenRoute: (context) => const MapScreen(),
         SignInScreen.screenRoute: (context) => const SignInScreen(),
         SignUpScreen.screenRoute: (context) => const SignUpScreen(),
         HomeScreen.screenRoute: (context) => const HomeScreen(),

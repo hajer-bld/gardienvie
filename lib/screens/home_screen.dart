@@ -9,6 +9,7 @@ import 'package:percent_indicator/percent_indicator.dart';
 import 'package:flutterflow_ui/flutterflow_ui.dart';
 import 'homemodel.dart';
 export 'homemodel.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String screenRoute = 'home_screen';
@@ -29,6 +30,8 @@ class HomeScreenState extends State<HomeScreen> {
   String longitudetext = '0';
   late HomeModel _model;
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+      FlutterLocalNotificationsPlugin();
 
   @override
   void initState() {
@@ -43,14 +46,35 @@ class HomeScreenState extends State<HomeScreen> {
     super.dispose();
   }
 
+  Future<void> initializeNotifications() async {
+    const AndroidInitializationSettings initializationSettingsAndroid =
+        AndroidInitializationSettings('@mipmap/ic_launcher');
+    final InitializationSettings initializationSettings =
+        InitializationSettings(
+      android: initializationSettingsAndroid,
+    );
+    await flutterLocalNotificationsPlugin.initialize(initializationSettings);
+  }
+
+  Future<void> showNotification(String title, String body) async {
+    const AndroidNotificationDetails androidPlatformChannelSpecifics =
+        AndroidNotificationDetails('id', 'name',
+            importance: Importance.max,
+            priority: Priority.high,
+            showWhen: false);
+    const NotificationDetails platformChannelSpecifics =
+        NotificationDetails(android: androidPlatformChannelSpecifics);
+
+    await flutterLocalNotificationsPlugin
+        .show(0, title, body, platformChannelSpecifics, payload: 'item x');
+  }
+
   Future<void> initializeFirebase() async {
     await Firebase.initializeApp();
   }
 
   Widget Data() {
     final DatabaseReference ref = FirebaseDatabase.instance.ref();
-
-    // Get references to data nodes
     final oxyRef = ref.child('oxy');
     final tempRef = ref.child('temp');
     final frecRef = ref.child('frec');
@@ -59,38 +83,52 @@ class HomeScreenState extends State<HomeScreen> {
     final latitudeRef = locationRef.child('latitude');
     final longitudeRef = locationRef.child('longitude');
 
-    // Listen for data changes
     oxyRef.onValue.listen((event) {
       setState(() {
-        oxytext = event.snapshot.value.toString(); // Cast to double (nullable)
+        oxytext = event.snapshot.value.toString();
       });
+      double oxyValue = double.tryParse(oxytext) ?? 0.0;
+      if (oxyValue < 90) {
+        showNotification('Low Oxygen Level', 'Oxygen level is below 90%');
+      }
     });
     tempRef.onValue.listen((event) {
       setState(() {
-        temptext = event.snapshot.value.toString(); // Cast to double (nullable)
+        temptext = event.snapshot.value.toString();
       });
+      double tempValue = double.tryParse(temptext) ?? 0.0;
+      if (tempValue > 37.5) {
+        showNotification('High Temperature', 'Temperature is above 37.5°C');
+      }
     });
     pressRef.onValue.listen((event) {
       setState(() {
-        presstext =
-            event.snapshot.value.toString(); // Cast to double (nullable)
+        presstext = event.snapshot.value.toString();
       });
+      double pressValue = double.tryParse(presstext) ?? 0.0;
+      if (pressValue > 140) {
+        showNotification(
+            'High Blood Pressure', 'Blood pressure is above normal levels');
+      }
     });
     frecRef.onValue.listen((event) {
       setState(() {
-        frectext = event.snapshot.value.toString(); // Cast to double (nullable)
+        frectext = event.snapshot.value.toString();
       });
+      double frecValue = double.tryParse(frectext) ?? 0.0;
+      if (frecValue > 100) {
+        showNotification(
+            'High Heart Rate', 'Heart rate is above normal levels');
+      }
     });
     latitudeRef.onValue.listen((event) {
       setState(() {
-        latitudetext =
-            event.snapshot.value.toString(); // Cast to double (nullable)
+        latitudetext = event.snapshot.value.toString();
       });
     });
     longitudeRef.onValue.listen((event) {
       setState(() {
-        latitudetext =
-            event.snapshot.value.toString(); // Cast to double (nullable)
+        latitudetext = event.snapshot.value.toString();
       });
     });
 
@@ -600,7 +638,7 @@ class HomeScreenState extends State<HomeScreen> {
               progressColor: const Color(0xFF92F3F3),
               backgroundColor: const Color(0xFF6D0C0C),
               center: Text(
-                '30%',
+                '60 pas',
                 style: FlutterFlowTheme.of(context).headlineSmall.override(
                       fontFamily: 'Sora',
                       color: FlutterFlowTheme.of(context).alternate,
@@ -616,7 +654,7 @@ class HomeScreenState extends State<HomeScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      '50-120',
+                      '20',
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                             fontFamily: 'Inter',
                             color:
@@ -661,54 +699,55 @@ class HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        key: scaffoldKey,
-        appBar: AppBar(
-          title: const Text(
-            'GardienVie',
-            style: TextStyle(
-              color: Colors.black,
-              fontWeight: FontWeight.bold,
+      key: scaffoldKey,
+      appBar: AppBar(
+        title: const Text(
+          'GardienVie',
+          style: TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        backgroundColor: const Color.fromARGB(255, 109, 12, 12),
+        centerTitle: true,
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => DataScreen()),
+              );
+            },
+            color: Colors.black,
+            icon: const Icon(
+              Icons.person,
+              size: 40,
             ),
           ),
-          backgroundColor: const Color.fromARGB(255, 109, 12, 12),
-          centerTitle: true,
-          actions: [
-            IconButton(
-              onPressed: () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (context) => DataScreen()),
-                );
-              },
-              color: Colors.black,
-              icon: const Icon(
-                Icons.person,
-                size: 40,
-              ),
-            ),
-          ],
-        ),
-        drawer: const drawer(),
-        body: FutureBuilder(
-          future: _fApp,
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              return Data();
-            } else {
-              return const CircularProgressIndicator();
-            }
-          },
-        )
-        /*floatingActionButton: FloatingActionButton(
-        onPressed: () =>
-            launchMaps(double.parse(latitude), double.parse(longitude)),
+        ],
+      ),
+      drawer: const drawer(),
+      body: FutureBuilder(
+        future: _fApp,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return Data();
+          } else {
+            return const CircularProgressIndicator();
+          }
+        },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          launchMaps(double.parse(latitudetext), double.parse(longitudetext));
+        },
         tooltip: 'Location',
         child: const Icon(
           Icons.location_on,
           size: 50,
           color: Color.fromARGB(255, 109, 12, 12),
         ),
-      ),*/
-        );
+      ),
+    );
   }
 }
