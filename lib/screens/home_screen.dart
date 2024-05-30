@@ -8,7 +8,6 @@ import 'package:percent_indicator/percent_indicator.dart';
 import 'package:flutterflow_ui/flutterflow_ui.dart';
 import 'homemodel.dart';
 export 'homemodel.dart';
-import 'package:fl_chart/fl_chart.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String screenRoute = 'home_screen';
