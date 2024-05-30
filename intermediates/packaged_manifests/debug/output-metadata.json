@@ -4,7 +4,7 @@
     "type": "PACKAGED_MANIFESTS",
     "kind": "Directory"
   },
-  "applicationId": "io.flutter.plugins.urllauncher",
+  "applicationId": "com.tekartik.sqflite",
   "variantName": "debug",
   "elements": [
     {

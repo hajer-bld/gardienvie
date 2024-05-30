@@ -26,6 +26,10 @@ class HomeScreenState extends State<HomeScreen> {
   late String temptext;
   double oxy = 100;
   late String oxytext;
+  double frec = 100;
+  late String frectext;
+  double press = 100;
+  late String presstext;
 
   @override
   void initState() {
@@ -33,6 +37,8 @@ class HomeScreenState extends State<HomeScreen> {
     _model = HomeModel();
     oxytext = oxy.toString();
     temptext = temp.toString();
+    frectext = frec.toString();
+    presstext = press.toString();
     initializeFirebase();
   }
 
@@ -50,6 +56,7 @@ class HomeScreenState extends State<HomeScreen> {
     try {
       DatabaseReference ref =
           FirebaseDatabase.instance.ref().child('locations');
+
       DataSnapshot snapshot = await ref.get();
 
       if (snapshot.value != null) {
@@ -150,12 +157,27 @@ class HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  double getCurrentTimeAsDouble() {
-    var y = DateTime.now().millisecondsSinceEpoch.toDouble();
-    return y;
+  double oxypercent(double oxy) {
+    if (oxy < 0) {
+      return 0.0;
+    } else if (oxy > 100) {
+      return 1.0;
+    } else {
+      return oxy / 100.0;
+    }
   }
 
-  double oxypercent(double oxy) {
+  double frecpercent(double frec) {
+    if (oxy < 0) {
+      return 0.0;
+    } else if (oxy > 100) {
+      return 1.0;
+    } else {
+      return oxy / 100.0;
+    }
+  }
+
+  double presspercent(double press) {
     if (oxy < 0) {
       return 0.0;
     } else if (oxy > 100) {
@@ -399,23 +421,22 @@ class HomeScreenState extends State<HomeScreen> {
                 ),
               ],
             ),
-            Expanded(
-              child: LineChart(
-                LineChartData(
-                  lineBarsData: [
-                    LineChartBarData(
-                      spots: _getLiveFrequencyData(),
-                      isCurved: true,
-                      color: const Color(0xFF92F3F3),
-                      barWidth: 4,
-                      belowBarData: BarAreaData(show: false),
+            LinearPercentIndicator(
+              percent: frecpercent(frec),
+              lineHeight: 34,
+              animation: true,
+              animateFromLastPercent: true,
+              progressColor: const Color(0xFF92F3F3),
+              backgroundColor: const Color(0xFF6D0C0C),
+              center: Text(
+                temptext,
+                style: FlutterFlowTheme.of(context).titleMedium.override(
+                      fontFamily: 'Inter',
+                      letterSpacing: 0,
                     ),
-                  ],
-                  borderData: FlBorderData(show: false),
-                  gridData: FlGridData(show: false),
-                  titlesData: FlTitlesData(show: false),
-                ),
               ),
+              barRadius: const Radius.circular(40),
+              padding: EdgeInsets.zero,
             ),
             Column(
               mainAxisSize: MainAxisSize.max,
@@ -465,20 +486,6 @@ class HomeScreenState extends State<HomeScreen> {
         ),
       ),
     );
-  }
-
-  List<FlSpot> _getLiveFrequencyData() {
-    // This method should return a list of FlSpot objects representing your live frequency data.
-    // For demonstration purposes, here's some dummy data:
-    return [
-      const FlSpot(0, 3),
-      const FlSpot(1, 2),
-      const FlSpot(2, 5),
-      const FlSpot(3, 3.1),
-      const FlSpot(4, 4),
-      const FlSpot(5, 3),
-      const FlSpot(6, 4),
-    ];
   }
 
   Widget _buildPressureCard(BuildContext context) {
@@ -511,23 +518,22 @@ class HomeScreenState extends State<HomeScreen> {
                 ),
               ],
             ),
-            Expanded(
-              child: LineChart(
-                LineChartData(
-                  lineBarsData: [
-                    LineChartBarData(
-                      spots: _getLivePressureData(),
-                      isCurved: true,
-                      color: const Color(0xFF92F3F3),
-                      barWidth: 4,
-                      belowBarData: BarAreaData(show: false),
+            LinearPercentIndicator(
+              percent: presspercent(press),
+              lineHeight: 34,
+              animation: true,
+              animateFromLastPercent: true,
+              progressColor: const Color(0xFF92F3F3),
+              backgroundColor: const Color(0xFF6D0C0C),
+              center: Text(
+                temptext,
+                style: FlutterFlowTheme.of(context).titleMedium.override(
+                      fontFamily: 'Inter',
+                      letterSpacing: 0,
                     ),
-                  ],
-                  borderData: FlBorderData(show: false),
-                  gridData: FlGridData(show: false),
-                  titlesData: FlTitlesData(show: false),
-                ),
               ),
+              barRadius: const Radius.circular(40),
+              padding: EdgeInsets.zero,
             ),
             Column(
               mainAxisSize: MainAxisSize.max,
@@ -577,20 +583,6 @@ class HomeScreenState extends State<HomeScreen> {
         ),
       ),
     );
-  }
-
-  List<FlSpot> _getLivePressureData() {
-    // This method should return a list of FlSpot objects representing your live pressure data.
-    // For demonstration purposes, here's some dummy data:
-    return [
-      const FlSpot(0, 1),
-      const FlSpot(1, 3),
-      const FlSpot(2, 4),
-      const FlSpot(3, 2),
-      const FlSpot(4, 5),
-      const FlSpot(5, 3),
-      const FlSpot(6, 4),
-    ];
   }
 
   Widget _buildMovementCard(BuildContext context) {
