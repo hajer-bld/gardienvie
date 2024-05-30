@@ -4,24 +4,7 @@
             "outputFile": "com.example.gardienvie.app-mergeDebugResources-18:/values-hu/values-hu.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\Samar\\.gradle\\caches\\transforms-3\\6d6940e3d03a93327d92e75fae13f549\\transformed\\browser-1.5.0\\res\\values-hu\\values-hu.xml",
-                    "from": {
-                        "startLines": "2,3,4,5",
-                        "startColumns": "4,4,4,4",
-                        "startOffsets": "55,151,252,367",
-                        "endColumns": "95,100,114,103",
-                        "endOffsets": "146,247,362,466"
-                    },
-                    "to": {
-                        "startLines": "27,28,29,30",
-                        "startColumns": "4,4,4,4",
-                        "startOffsets": "3205,3301,3402,3517",
-                        "endColumns": "95,100,114,103",
-                        "endOffsets": "3296,3397,3512,3616"
-                    }
-                },
-                {
-                    "source": "C:\\Users\\Samar\\.gradle\\caches\\transforms-3\\2d0999888f63101b0f6ab51c8f705ae8\\transformed\\jetified-play-services-base-18.3.0\\res\\values-hu\\values.xml",
+                    "source": "C:\\Users\\Samar\\.gradle\\caches\\transforms-3\\bd34b294316bf4dbfe4ac8bcecc4b6d7\\transformed\\jetified-play-services-base-18.3.0\\res\\values-hu\\values.xml",
                     "from": {
                         "startLines": "4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20",
                         "startColumns": "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0",
@@ -38,7 +21,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\Samar\\.gradle\\caches\\transforms-3\\2d69b28b2c99bedfbc24d6b045de0635\\transformed\\jetified-play-services-basement-18.3.0\\res\\values-hu\\values.xml",
+                    "source": "C:\\Users\\Samar\\.gradle\\caches\\transforms-3\\a6a108e9cbd4b7eb785ef006ed0356f6\\transformed\\jetified-play-services-basement-18.3.0\\res\\values-hu\\values.xml",
                     "from": {
                         "startLines": "4",
                         "startColumns": "0",
@@ -55,7 +38,24 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\Samar\\.gradle\\caches\\transforms-3\\67406f7969e9abc81641bcbd65638dd5\\transformed\\core-1.10.1\\res\\values-hu\\values-hu.xml",
+                    "source": "C:\\Users\\Samar\\.gradle\\caches\\transforms-3\\388312f69f35a6475aa9855e7d37d549\\transformed\\browser-1.5.0\\res\\values-hu\\values-hu.xml",
+                    "from": {
+                        "startLines": "2,3,4,5",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "55,151,252,367",
+                        "endColumns": "95,100,114,103",
+                        "endOffsets": "146,247,362,466"
+                    },
+                    "to": {
+                        "startLines": "27,28,29,30",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "3205,3301,3402,3517",
+                        "endColumns": "95,100,114,103",
+                        "endOffsets": "3296,3397,3512,3616"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\Samar\\.gradle\\caches\\transforms-3\\5045d443db97f79e690b4768fd67f287\\transformed\\core-1.10.1\\res\\values-hu\\values-hu.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9",
                         "startColumns": "4,4,4,4,4,4,4,4",
