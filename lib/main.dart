@@ -11,7 +11,14 @@ import 'screens/map_screen.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
+    options: const FirebaseOptions(
+        appId: "1:771455183307:android:59e26f015372364a886e4e",
+        apiKey: "AIzaSyBRl5ZbsFdm3ropf9X2v2SvSndGuYjMxq4",
+        databaseURL:
+            "https://gardienvie-1fe1e-default-rtdb.europe-west1.firebasedatabase.app",
+        projectId: "gardienvie-1fe1e",
+        storageBucket: "auth-app-9678a.appspot.com",
+        messagingSenderId: ""),
   );
   runApp(const MyApp());
 }

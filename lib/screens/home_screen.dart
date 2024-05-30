@@ -2,6 +2,7 @@ import 'package:firebase_auth_platform_interface/firebase_auth_platform_interfac
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../my_widgets/drawer.dart';
 import 'data_screen.dart';
@@ -22,11 +23,11 @@ class HomeScreen extends StatefulWidget {
 class HomeScreenState extends State<HomeScreen> {
   final Future<FirebaseApp> _fApp = Firebase.initializeApp();
   String oxytext = '0';
-  String temp = '0';
-  String frec = '0';
-  String press = '0';
-  String latitude = '0';
-  String longitude = '0';
+  String temptext = '0';
+  String frectext = '0';
+  String presstext = '0';
+  String latitudetext = '0';
+  String longitudetext = '0';
   late HomeModel _model;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -34,7 +35,6 @@ class HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     _model = HomeModel();
-    fetchData();
     initializeFirebase();
   }
 
@@ -48,88 +48,85 @@ class HomeScreenState extends State<HomeScreen> {
     await Firebase.initializeApp();
   }
 
-  Future<void> fetchData() async {
-    DatabaseReference ref = FirebaseDatabase.instance.ref();
+  Widget Data() {
+    final DatabaseReference ref = FirebaseDatabase.instance.ref();
 
-    Future<void> fetchData() async {
-      final DatabaseReference ref = FirebaseDatabase.instance.ref();
+    // Get references to data nodes
+    final oxyRef = ref.child('oxy');
+    final tempRef = ref.child('temp');
+    final frecRef = ref.child('frec');
+    final pressRef = ref.child('press');
+    final locationRef = ref.child('location');
+    final latitudeRef = locationRef.child('latitude');
+    final longitudeRef = locationRef.child('longitude');
 
-      // Get references to data nodes
-      final oxyRef = ref.child('oxy');
-      final tempRef = ref.child('temp');
-      final frecRef = ref.child('frec');
-      final pressRef = ref.child('press');
-      final locationRef = ref.child('location');
-      final latitudeRef = locationRef.child('latitude');
-      final longitudeRef = locationRef.child('longitude');
+    // Listen for data changes
+    oxyRef.onValue.listen((event) {
+      setState(() {
+        oxytext = event.snapshot.value.toString(); // Cast to double (nullable)
+      });
+    });
+    tempRef.onValue.listen((event) {
+      setState(() {
+        temptext = event.snapshot.value.toString(); // Cast to double (nullable)
+      });
+    });
+    pressRef.onValue.listen((event) {
+      setState(() {
+        presstext =
+            event.snapshot.value.toString(); // Cast to double (nullable)
+      });
+    });
+    frecRef.onValue.listen((event) {
+      setState(() {
+        frectext = event.snapshot.value.toString(); // Cast to double (nullable)
+      });
+    });
+    latitudeRef.onValue.listen((event) {
+      setState(() {
+        latitudetext =
+            event.snapshot.value.toString(); // Cast to double (nullable)
+      });
+    });
+    longitudeRef.onValue.listen((event) {
+      setState(() {
+        latitudetext =
+            event.snapshot.value.toString(); // Cast to double (nullable)
+      });
+    });
 
-      // Listen for data changes
-      oxyRef.onValue.listen((event) {
-        final oxyValue =
-            event.snapshot.value as double?; // Cast to double (nullable)
-        if (oxyValue != null) {
-          setState(() {
-            oxy = oxyValue.toString(); // Convert to String for display
-          });
-        }
-      });
-      tempRef.onValue.listen((event) {
-        final tempValue =
-            event.snapshot.value as double?; // Cast to double (nullable)
-        if (tempValue != null) {
-          setState(() {
-            temp = tempValue.toString(); // Convert to String for display
-          });
-        }
-      });
-      frecRef.onValue.listen((event) {
-        final frecValue =
-            event.snapshot.value as double?; // Cast to double (nullable)
-        if (frecValue != null) {
-          setState(() {
-            frec = frecValue.toString(); // Convert to String for display
-          });
-        }
-      });
-      pressRef.onValue.listen((event) {
-        final pressValue =
-            event.snapshot.value as double?; // Cast to double (nullable)
-        if (pressValue != null) {
-          setState(() {
-            press = pressValue.toString(); // Convert to String for display
-          });
-        }
-      });
-      latitudeRef.onValue.listen((event) {
-        final latitudeValue =
-            event.snapshot.value as double?; // Cast to double (nullable)
-        if (latitudeValue != null) {
-          setState(() {
-            latitude =
-                latitudeValue.toString(); // Convert to String for display
-          });
-        }
-      });
-      longitudeRef.onValue.listen((event) {
-        final longitudeValue =
-            event.snapshot.value as double?; // Cast to double (nullable)
-        if (longitudeValue != null) {
-          setState(() {
-            longitude =
-                longitudeValue.toString(); // Convert to String for display
-          });
-        }
-      });
-    }
+    return SafeArea(
+      top: true,
+      child: Padding(
+        padding: const EdgeInsetsDirectional.fromSTEB(12, 12, 12, 0),
+        child: GridView(
+          padding: EdgeInsets.zero,
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            crossAxisSpacing: 10,
+            mainAxisSpacing: 10,
+            childAspectRatio: 0.65,
+          ),
+          scrollDirection: Axis.vertical,
+          children: [
+            _buildOxymetryCard(context),
+            _buildTemperatureCard(context),
+            _buildFrequencyCard(context),
+            _buildPressureCard(context),
+            _buildMovementCard(context),
+          ],
+        ),
+      ),
+    );
+  }
 
-    Future<void> launchMaps(double latitude, double longitude) async {
-      final url =
-          'https://www.google.com/maps/search/?api=1&query=$latitude,$longitude';
-      if (await canLaunch(url)) {
-        await launch(url);
-      } else {
-        throw 'Could not launch $url';
-      }
+  Future<void> launchMaps(double latitude, double longitude) async {
+    final url =
+        'https://www.google.com/maps/search/?api=1&query=$latitude,$longitude';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
     }
   }
 
@@ -208,7 +205,7 @@ class HomeScreenState extends State<HomeScreen> {
               ],
             ),
             CircularPercentIndicator(
-              percent: oxypercent(oxyValue),
+              percent: oxypercent(oxytext),
               radius: 66,
               lineWidth: 18,
               animation: true,
@@ -216,7 +213,7 @@ class HomeScreenState extends State<HomeScreen> {
               progressColor: const Color(0xFF92F3F3),
               backgroundColor: const Color(0xFF6D0C0C),
               center: Text(
-                oxy,
+                oxytext,
                 style: FlutterFlowTheme.of(context).headlineSmall.override(
                       fontFamily: 'Sora',
                       color: FlutterFlowTheme.of(context).alternate,
@@ -232,7 +229,7 @@ class HomeScreenState extends State<HomeScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      oxy,
+                      oxytext,
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                             fontFamily: 'Inter',
                             color:
@@ -305,14 +302,14 @@ class HomeScreenState extends State<HomeScreen> {
               ],
             ),
             LinearPercentIndicator(
-              percent: temppercent(temp),
+              percent: temppercent(temptext),
               lineHeight: 34,
               animation: true,
               animateFromLastPercent: true,
               progressColor: const Color(0xFF92F3F3),
               backgroundColor: const Color(0xFF6D0C0C),
               center: Text(
-                temp,
+                temptext,
                 style: FlutterFlowTheme.of(context).titleMedium.override(
                       fontFamily: 'Inter',
                       letterSpacing: 0,
@@ -329,7 +326,7 @@ class HomeScreenState extends State<HomeScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      temp,
+                      temptext,
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                             fontFamily: 'Inter',
                             color:
@@ -402,14 +399,14 @@ class HomeScreenState extends State<HomeScreen> {
               ],
             ),
             LinearPercentIndicator(
-              percent: frecpercent(frec),
+              percent: frecpercent(frectext),
               lineHeight: 34,
               animation: true,
               animateFromLastPercent: true,
               progressColor: const Color(0xFF92F3F3),
               backgroundColor: const Color(0xFF6D0C0C),
               center: Text(
-                temp,
+                frectext,
                 style: FlutterFlowTheme.of(context).titleMedium.override(
                       fontFamily: 'Inter',
                       letterSpacing: 0,
@@ -426,7 +423,7 @@ class HomeScreenState extends State<HomeScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      '50-120',
+                      frectext,
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                             fontFamily: 'Inter',
                             color:
@@ -499,14 +496,14 @@ class HomeScreenState extends State<HomeScreen> {
               ],
             ),
             LinearPercentIndicator(
-              percent: presspercent(press),
+              percent: presspercent(presstext),
               lineHeight: 34,
               animation: true,
               animateFromLastPercent: true,
               progressColor: const Color(0xFF92F3F3),
               backgroundColor: const Color(0xFF6D0C0C),
               center: Text(
-                temp,
+                temptext,
                 style: FlutterFlowTheme.of(context).titleMedium.override(
                       fontFamily: 'Inter',
                       letterSpacing: 0,
@@ -523,7 +520,7 @@ class HomeScreenState extends State<HomeScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      '50-120',
+                      presstext,
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                             fontFamily: 'Inter',
                             color:
@@ -665,58 +662,45 @@ class HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: scaffoldKey,
-      appBar: AppBar(
-        title: const Text(
-          'GardienVie',
-          style: TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        backgroundColor: const Color.fromARGB(255, 109, 12, 12),
-        centerTitle: true,
-        actions: [
-          IconButton(
-            onPressed: () {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => DataScreen()),
-              );
-            },
-            color: Colors.black,
-            icon: const Icon(
-              Icons.person,
-              size: 40,
+        key: scaffoldKey,
+        appBar: AppBar(
+          title: const Text(
+            'GardienVie',
+            style: TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
             ),
           ),
-        ],
-      ),
-      drawer: const drawer(),
-      body: SafeArea(
-        top: true,
-        child: Padding(
-          padding: const EdgeInsetsDirectional.fromSTEB(12, 12, 12, 0),
-          child: GridView(
-            padding: EdgeInsets.zero,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 10,
-              childAspectRatio: 0.65,
+          backgroundColor: const Color.fromARGB(255, 109, 12, 12),
+          centerTitle: true,
+          actions: [
+            IconButton(
+              onPressed: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => DataScreen()),
+                );
+              },
+              color: Colors.black,
+              icon: const Icon(
+                Icons.person,
+                size: 40,
+              ),
             ),
-            scrollDirection: Axis.vertical,
-            children: [
-              _buildOxymetryCard(context),
-              _buildTemperatureCard(context),
-              _buildFrequencyCard(context),
-              _buildPressureCard(context),
-              _buildMovementCard(context),
-            ],
-          ),
+          ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
+        drawer: const drawer(),
+        body: FutureBuilder(
+          future: _fApp,
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return Data();
+            } else {
+              return const CircularProgressIndicator();
+            }
+          },
+        )
+        /*floatingActionButton: FloatingActionButton(
         onPressed: () =>
             launchMaps(double.parse(latitude), double.parse(longitude)),
         tooltip: 'Location',
@@ -725,7 +709,7 @@ class HomeScreenState extends State<HomeScreen> {
           size: 50,
           color: Color.fromARGB(255, 109, 12, 12),
         ),
-      ),
-    );
+      ),*/
+        );
   }
 }
